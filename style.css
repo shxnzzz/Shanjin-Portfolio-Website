@@ -195,6 +195,20 @@ body {
   align-items: center;
 }
 
+.profile-image {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
+}
+
 .profile-placeholder {
   width: 300px;
   height: 300px;
@@ -281,6 +295,182 @@ section {
 .stat p {
   color: #6b7280;
   font-weight: 500;
+}
+
+/* Work Experience Section */
+.experience {
+  background: #f8fafc;
+}
+
+.experience-timeline {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.experience-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.experience-item:hover {
+  transform: translateY(-5px);
+}
+
+.experience-item::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 2rem;
+  width: 12px;
+  height: 12px;
+  background: #2563eb;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 0 3px #e0e7ff;
+}
+
+.experience-header h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.company {
+  font-size: 1.1rem;
+  color: #2563eb;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.duration {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.experience-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.experience-content li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.experience-content li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #2563eb;
+  font-weight: bold;
+}
+
+/* Education Section */
+.education {
+  background: #f8fafc;
+}
+
+.education-timeline {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.education-item {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.education-item:hover {
+  transform: translateY(-5px);
+}
+
+.education-item::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 2.5rem;
+  width: 12px;
+  height: 12px;
+  background: #10b981;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 0 3px #d1fae5;
+}
+
+.education-header h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.degree {
+  font-size: 1.1rem;
+  color: #10b981;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.education-content h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 1.5rem 0 1rem 0;
+}
+
+.education-content h4:first-of-type {
+  margin-top: 1rem;
+}
+
+.education-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.education-content li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.education-content li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #10b981;
+  font-weight: bold;
+}
+
+.education-content ul ul {
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+}
+
+.education-content ul ul li {
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+.education-content ul ul li::before {
+  content: '•';
+  color: #10b981;
 }
 
 /* Skills Section */
@@ -584,6 +774,14 @@ section {
 
   .skills-grid {
     grid-template-columns: 1fr;
+  }
+
+  .experience-item::before {
+    left: -10px;
+  }
+
+  .education-item::before {
+    left: -10px;
   }
 
   .footer-content {
