@@ -62,7 +62,7 @@
      .education-content ul ul li::before { content: '•'; color: #10b981; }
      
      /* Skills Section Fallback */
-     .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+     .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
      .skill-category { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); }
      .skill-category h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: #1f2937; }
      .skill-items { display: flex; flex-wrap: wrap; gap: 0.75rem; }
@@ -98,7 +98,7 @@
      .gallery-img { width: 80px; height: 60px; object-fit: cover; border-radius: 6px; border: 2px solid #e5e7eb; flex-shrink: 0; }
      
      /* Contact Section Fallback */
-     .contact-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+     .contact-content { display: flex; justify-content: center; align-items: center; max-width: 600px; margin: 0 auto; }
      .contact-info h3 { font-size: 2rem; font-weight: 600; margin-bottom: 1rem; color: #1f2937; }
      .contact-info p { color: #6b7280; margin-bottom: 2rem; line-height: 1.7; }
      .contact-methods { display: flex; flex-direction: column; gap: 1.5rem; }
@@ -111,6 +111,23 @@
      .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 1rem; font-family: inherit; }
      .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #2563eb; }
      .form-group textarea { resize: vertical; min-height: 120px; }
+     
+     /* Resume Section Fallback */
+     .resume { background: #f8fafc; padding: 4rem 0; }
+     .resume-content { text-align: center; max-width: 600px; margin: 0 auto; }
+     .resume-content p { font-size: 1.1rem; color: #6b7280; margin-bottom: 2rem; line-height: 1.6; }
+     .resume-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+     .resume-buttons .btn { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; font-size: 1rem; }
+     
+     /* New Project Structure Fallback */
+     .project-card { cursor: pointer; transition: all 0.3s ease; }
+     .project-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1rem; }
+     .project-basic-info { flex: 1; display: flex; flex-direction: column; gap: 0.75rem; }
+     .project-basic-info h3 { margin: 0; font-size: 1.4rem; font-weight: 600; color: #1f2937; }
+     .expand-indicator { align-self: flex-end; color: #6b7280; transition: transform 0.3s ease; }
+     .project-expanded-content { padding-top: 1rem; border-top: 1px solid #e5e7eb; }
+     .contact-link { color: #2563eb; text-decoration: none; transition: color 0.3s ease; }
+     .contact-link:hover { color: #1d4ed8; text-decoration: underline; }
      
      /* Footer Fallback */
      .footer { background: #1f2937; color: white; padding: 2rem 0; }
@@ -127,7 +144,11 @@
        .projects-grid { grid-template-columns: 1fr; }
        .project-gallery { gap: 0.25rem; }
        .gallery-img { width: 60px; height: 45px; }
-       .skills-grid { grid-template-columns: 1fr; }
+       .project-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+       .project-basic-info h3 { font-size: 1.2rem; }
+       .resume-buttons { flex-direction: column; align-items: center; }
+       .resume-buttons .btn { width: 100%; max-width: 300px; justify-content: center; }
+       .skills-grid { grid-template-columns: repeat(2, 1fr); }
        .footer-content { flex-direction: column; text-align: center; }
      }
   </style>
@@ -147,16 +168,19 @@
           <a href="#about" class="nav-link">About</a>
         </li>
         <li class="nav-item">
-          <a href="#experience" class="nav-link">Experience</a>
+          <a href="#skills" class="nav-link">Skills</a>
+        </li>
+        <li class="nav-item">
+          <a href="#projects" class="nav-link">Projects</a>
         </li>
         <li class="nav-item">
           <a href="#education" class="nav-link">Education</a>
         </li>
         <li class="nav-item">
-          <a href="#skills" class="nav-link">Skills</a>
+          <a href="#experience" class="nav-link">Experience</a>
         </li>
         <li class="nav-item">
-          <a href="#projects" class="nav-link">Projects</a>
+          <a href="#resume" class="nav-link">Resume</a>
         </li>
         <li class="nav-item">
           <a href="#contact" class="nav-link">Contact</a>
@@ -197,60 +221,290 @@
       <h2 class="section-title">About Me</h2>
       <div class="about-content">
         <div class="about-text">
-          <p>I am a Software Engineering undergraduate at Singapore Institute of Technology with a passion for AI/ML and innovative software solutions. My journey includes professional experience at NEC Asia Pacific Pte Ltd and active participation in hackathons and tech competitions, where I've developed AI-driven platforms and mobile applications.</p>
-          <p>I specialize in creating intelligent solutions that combine AI/ML with practical business applications. My recent achievements include developing an AI job matching platform using NLP and participating in national tech championships as a mentor. I'm committed to leveraging technology to solve real-world problems.</p>
-                      <div class="about-stats">
-              <div class="stat">
-                <h3>1+</h3>
-                <p>Years Experience</p>
-              </div>
-              <div class="stat">
-                <h3>5+</h3>
-                <p>Projects Completed</p>
-              </div>
-              <div class="stat">
-                <h3>12+</h3>
-                <p>Technologies</p>
-              </div>
+          <p>I am a <strong>Year 3 Software Engineering student at Singapore Institute of Technology (SIT)</strong>, passionate about creating innovative software solutions that make a real impact. My technical interests lie in AI/ML, mobile development, and full-stack web applications.</p>
+          
+          <p>What motivates me is the opportunity to solve complex problems through technology. I love the challenge of translating real-world needs into elegant software solutions, whether it's developing AI-powered platforms or creating user-friendly mobile applications. Every project is a chance to learn, grow, and contribute something meaningful to the world.</p>
+          
+          <p>My journey includes professional experience at NEC Asia Pacific Pte Ltd, where I developed inventory management systems, and active participation in hackathons and tech competitions. I've worked on projects ranging from AI-driven job matching platforms to fitness tracking applications, always focusing on creating solutions that are both technically sound and user-centric.</p>
+          
+          <div class="about-stats">
+            <div class="stat">
+              <h3>1+</h3>
+              <p>Years Experience</p>
             </div>
+            <div class="stat">
+              <h3>5+</h3>
+              <p>Projects Completed</p>
+            </div>
+            <div class="stat">
+              <h3>12+</h3>
+              <p>Technologies</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Work Experience Section -->
-  <section id="experience" class="experience">
+  <!-- Skills Section -->
+  <section id="skills" class="skills">
     <div class="container">
-      <h2 class="section-title">Work Experience</h2>
-      <div class="experience-timeline">
-        <div class="experience-item">
-          <div class="experience-header">
-            <h3>Assistant Engineer</h3>
-            <p class="company">NEC Asia Pacific Pte Ltd</p>
-            <p class="duration">February 2021 - April 2021</p>
-          </div>
-          <div class="experience-content">
-            <ul>
-              <li>Enhanced company's inventory management system by developing a mobile app for real-time inventory tracking</li>
-              <li>Designed a user-friendly interface with push notification and barcode scanning capabilities</li>
-              <li>Streamlined inventory processes and collaborated with team members for app usability</li>
-              <li>Conducted extensive testing to ensure reliability and efficiency</li>
-            </ul>
+      <h2 class="section-title">Skills & Technologies</h2>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3>Languages</h3>
+          <div class="skill-items">
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" class="skill-icon">
+              HTML
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" class="skill-icon">
+              CSS
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="skill-icon">
+              JavaScript
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="skill-icon">
+              Python
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin" class="skill-icon">
+              Kotlin
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" class="skill-icon">
+              Java
+            </span>
           </div>
         </div>
         
-        <div class="experience-item">
-          <div class="experience-header">
-            <h3>Application Developer</h3>
-            <p class="company">NEC Asia Pacific Pte Ltd</p>
-            <p class="duration">September 2020 - January 2021</p>
+        <div class="skill-category">
+          <h3>Frameworks</h3>
+          <div class="skill-items">
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="skill-icon">
+              React
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="Vue" class="skill-icon">
+              Vue
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" alt="Flask" class="skill-icon">
+              Flask
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI" class="skill-icon">
+              FastAPI
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg" alt="ASP.NET" class="skill-icon">
+              ASP.NET MVC
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jetpackcompose/jetpackcompose-original.svg" alt="Jetpack Compose" class="skill-icon">
+              Jetpack Compose
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikit-learn/scikit-learn-original.svg" alt="Scikit-learn" class="skill-icon">
+              Scikit-learn
+            </span>
           </div>
-          <div class="experience-content">
-            <ul>
-              <li>Designed and developed an inventory management website focusing on seamless tracking of inventory movement</li>
-              <li>Collaborated with stakeholders to translate operational requirements into user-friendly digital solutions</li>
-              <li>Implemented key features like inventory tracking, automated notifications, and usage analytics to optimize operations</li>
-            </ul>
+        </div>
+        
+        <div class="skill-category">
+          <h3>Tools</h3>
+          <div class="skill-items">
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="skill-icon">
+              Git
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="skill-icon">
+              Docker
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase" class="skill-icon">
+              Firebase
+            </span>
+            <span class="skill-item">
+              <i class="fas fa-brain"></i>
+              NLP
+            </span>
+            <span class="skill-item">
+              <i class="fas fa-robot"></i>
+              Machine Learning
+            </span>
+            <span class="skill-item">
+              <i class="fas fa-magic"></i>
+              Generative AI
+            </span>
+          </div>
+        </div>
+        
+        <div class="skill-category">
+          <h3>Databases</h3>
+          <div class="skill-items">
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" class="skill-icon">
+              MySQL
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" class="skill-icon">
+              PostgreSQL
+            </span>
+            <span class="skill-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" class="skill-icon">
+              MongoDB
+            </span>
+            <span class="skill-item">
+              <i class="fas fa-database"></i>
+              DBMS
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects">
+    <div class="container">
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card" onclick="toggleProject(this)">
+          <div class="project-header">
+            <div class="project-image">
+              <img src="ippt-home.jpg" alt="IPPT Fitness App Home Screen" class="project-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="project-placeholder" style="display: none;">
+                <i class="fas fa-dumbbell"></i>
+              </div>
+            </div>
+            <div class="project-basic-info">
+              <h3>Interactive Physical Proficiency Trainer (IPPT Fitness App)</h3>
+              <div class="project-tech">
+                <span>Android</span>
+                <span>Google ML Kit</span>
+                <span>AR/VR</span>
+                <span>GPS Tracking</span>
+                <span>Room Database</span>
+              </div>
+              <div class="expand-indicator">
+                <i class="fas fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+          <div class="project-expanded-content" style="display: none;">
+            <p>Co-developed a mobile fitness app designed to help users improve their IPPT scores using only their smartphones—eliminating the need for external wearables.</p>
+            <div class="project-features">
+              <h4>Key Features:</h4>
+              <ul>
+                <li>Real-time push-up & sit-up tracking using Google ML Kit Pose Detection</li>
+                <li>AR tutorials for correct form via Google Scene Viewer</li>
+                <li>GPS-based 2.4km run tracking with live pace, distance & route via Google Maps</li>
+                <li>Offline workout summary storage using Room database</li>
+              </ul>
+            </div>
+            <div class="project-role">
+              <h4>My Role:</h4>
+              <p>Developed the full running tracker module, integrating GPS, live tracking, pace calculation, and route visualization.</p>
+            </div>
+            <div class="project-achievement">
+              <p><strong>Achievement:</strong> Over 90% detection accuracy and high user satisfaction in usability tests.</p>
+            </div>
+            <div class="project-gallery">
+              <img src="ippt-pushup.jpg" alt="Push-up Tracking" class="gallery-img" onerror="this.style.display='none';">
+              <img src="ippt-situp.jpg" alt="Sit-up Tracking" class="gallery-img" onerror="this.style.display='none';">
+              <img src="ippt-run.jpg" alt="Run Summary" class="gallery-img" onerror="this.style.display='none';">
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" onclick="toggleProject(this)">
+          <div class="project-header">
+            <div class="project-image">
+              <div class="project-placeholder">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+            </div>
+            <div class="project-basic-info">
+              <h3>Inventory Management Mobile App</h3>
+              <div class="project-tech">
+                <span>React Native</span>
+                <span>Barcode Scanning</span>
+                <span>Push Notifications</span>
+              </div>
+              <div class="expand-indicator">
+                <i class="fas fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+          <div class="project-expanded-content" style="display: none;">
+            <p>Developed a mobile application for real-time inventory tracking at NEC Asia Pacific Pte Ltd. Features include barcode scanning, push notifications, and user-friendly interface design.</p>
+            <div class="project-links">
+              <a href="#" class="project-link"><i class="fas fa-building"></i> NEC Asia Pacific</a>
+              <a href="#" class="project-link"><i class="fas fa-calendar"></i> Feb 2021 - Apr 2021</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" onclick="toggleProject(this)">
+          <div class="project-header">
+            <div class="project-image">
+              <div class="project-placeholder">
+                <i class="fas fa-laptop-code"></i>
+              </div>
+            </div>
+            <div class="project-basic-info">
+              <h3>Inventory Management Website</h3>
+              <div class="project-tech">
+                <span>Web Development</span>
+                <span>Inventory Tracking</span>
+                <span>Analytics</span>
+              </div>
+              <div class="expand-indicator">
+                <i class="fas fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+          <div class="project-expanded-content" style="display: none;">
+            <p>Designed and developed a comprehensive inventory management website for NEC Asia Pacific Pte Ltd. Implemented features like inventory tracking, automated notifications, and usage analytics.</p>
+            <div class="project-links">
+              <a href="#" class="project-link"><i class="fas fa-building"></i> NEC Asia Pacific</a>
+              <a href="#" class="project-link"><i class="fas fa-calendar"></i> Sep 2020 - Jan 2021</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" onclick="toggleProject(this)">
+          <div class="project-header">
+            <div class="project-image">
+              <div class="project-placeholder">
+                <i class="fas fa-robot"></i>
+              </div>
+            </div>
+            <div class="project-basic-info">
+              <h3>AI Job Matching Platform</h3>
+              <div class="project-tech">
+                <span>NLP</span>
+                <span>Machine Learning</span>
+                <span>Python</span>
+                <span>AI/ML</span>
+              </div>
+              <div class="expand-indicator">
+                <i class="fas fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+          <div class="project-expanded-content" style="display: none;">
+            <p>Developed an AI-driven platform that intelligently matches job seekers to suitable job openings using resume parsing and natural language processing. Features include skill extraction, semantic analysis, and personalized cover letter generation.</p>
+            <div class="project-links">
+              <a href="#" class="project-link"><i class="fas fa-trophy"></i> NUS-Guru Innovation</a>
+              <a href="#" class="project-link"><i class="fas fa-calendar"></i> 2025</a>
+            </div>
           </div>
         </div>
       </div>
@@ -314,255 +568,61 @@
     </div>
   </section>
 
-  <!-- Skills Section -->
-  <section id="skills" class="skills">
+  <!-- Work Experience Section -->
+  <section id="experience" class="experience">
     <div class="container">
-      <h2 class="section-title">Skills & Technologies</h2>
-      <div class="skills-grid">
-                 <div class="skill-category">
-           <h3>Technical Skills</h3>
-           <div class="skill-items">
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" class="skill-icon">
-               HTML
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" class="skill-icon">
-               CSS
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="skill-icon">
-               JavaScript
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="skill-icon">
-               Python
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin" class="skill-icon">
-               Kotlin
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg" alt="ASP.NET" class="skill-icon">
-               ASP.NET MVC
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI" class="skill-icon">
-               FastAPI
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" class="skill-icon">
-               MySQL
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase" class="skill-icon">
-               Firebase
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikit-learn/scikit-learn-original.svg" alt="Scikit-learn" class="skill-icon">
-               Scikit-learn
-             </span>
-             <span class="skill-item">
-               <i class="fas fa-brain"></i>
-               NLP
-             </span>
-             <span class="skill-item">
-               <i class="fas fa-robot"></i>
-               Machine Learning
-             </span>
-             <span class="skill-item">
-               <i class="fas fa-magic"></i>
-               Generative AI
-             </span>
-             <span class="skill-item">
-               <i class="fas fa-database"></i>
-               DBMS
-             </span>
-           </div>
-         </div>
-         <div class="skill-category">
-           <h3>Tools & Frameworks</h3>
-           <div class="skill-items">
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="skill-icon">
-               Git
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="skill-icon">
-               Docker
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jetpackcompose/jetpackcompose-original.svg" alt="Jetpack Compose" class="skill-icon">
-               Jetpack Compose
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" alt="Flask" class="skill-icon">
-               Flask
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="skill-icon">
-               React
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="Vue" class="skill-icon">
-               Vue
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase" class="skill-icon">
-               Firebase
-             </span>
-             <span class="skill-item">
-               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI" class="skill-icon">
-               FastAPI
-             </span>
-           </div>
-         </div>
-         <div class="skill-category">
-           <h3>Soft Skills</h3>
-           <div class="skill-items">
-             <span class="skill-item">
-               <i class="fas fa-lightbulb"></i>
-               Problem Solving
-             </span>
-             <span class="skill-item">
-               <i class="fas fa-tasks"></i>
-               Project Management
-             </span>
-             <span class="skill-item">
-               <i class="fas fa-puzzle-piece"></i>
-               System Integration
-             </span>
-             <span class="skill-item">
-               <i class="fas fa-comments"></i>
-               Communication
-             </span>
-             <span class="skill-item">
-               <i class="fas fa-users"></i>
-               Leadership
-             </span>
-             <span class="skill-item">
-               <i class="fas fa-clock"></i>
-               Time Management
-             </span>
-             <span class="skill-item">
-               <i class="fas fa-user-check"></i>
-               User-centered Design
-             </span>
-           </div>
-         </div>
+      <h2 class="section-title">Work Experience</h2>
+      <div class="experience-timeline">
+        <div class="experience-item">
+          <div class="experience-header">
+            <h3>Assistant Engineer</h3>
+            <p class="company">NEC Asia Pacific Pte Ltd</p>
+            <p class="duration">February 2021 - April 2021</p>
+          </div>
+          <div class="experience-content">
+            <ul>
+              <li>Enhanced company's inventory management system by developing a mobile app for real-time inventory tracking</li>
+              <li>Designed a user-friendly interface with push notification and barcode scanning capabilities</li>
+              <li>Streamlined inventory processes and collaborated with team members for app usability</li>
+              <li>Conducted extensive testing to ensure reliability and efficiency</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="experience-item">
+          <div class="experience-header">
+            <h3>Application Developer</h3>
+            <p class="company">NEC Asia Pacific Pte Ltd</p>
+            <p class="duration">September 2020 - January 2021</p>
+          </div>
+          <div class="experience-content">
+            <ul>
+              <li>Designed and developed an inventory management website focusing on seamless tracking of inventory movement</li>
+              <li>Collaborated with stakeholders to translate operational requirements into user-friendly digital solutions</li>
+              <li>Implemented key features like inventory tracking, automated notifications, and usage analytics to optimize operations</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Projects Section -->
-  <section id="projects" class="projects">
+  <!-- Resume Section -->
+  <section id="resume" class="resume">
     <div class="container">
-      <h2 class="section-title">Featured Projects</h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-image">
-            <img src="ippt-home.jpg" alt="IPPT Fitness App Home Screen" class="project-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="project-placeholder" style="display: none;">
-              <i class="fas fa-dumbbell"></i>
-            </div>
-          </div>
-          <div class="project-content">
-            <h3>Interactive Physical Proficiency Trainer (IPPT Fitness App)</h3>
-            <p>Co-developed a mobile fitness app designed to help users improve their IPPT scores using only their smartphones—eliminating the need for external wearables.</p>
-            <div class="project-features">
-              <h4>Key Features:</h4>
-              <ul>
-                <li>Real-time push-up & sit-up tracking using Google ML Kit Pose Detection</li>
-                <li>AR tutorials for correct form via Google Scene Viewer</li>
-                <li>GPS-based 2.4km run tracking with live pace, distance & route via Google Maps</li>
-                <li>Offline workout summary storage using Room database</li>
-              </ul>
-            </div>
-            <div class="project-role">
-              <h4>My Role:</h4>
-              <p>Developed the full running tracker module, integrating GPS, live tracking, pace calculation, and route visualization.</p>
-            </div>
-            <div class="project-achievement">
-              <p><strong>Achievement:</strong> Over 90% detection accuracy and high user satisfaction in usability tests.</p>
-            </div>
-            <div class="project-tech">
-              <span>Android</span>
-              <span>Google ML Kit</span>
-              <span>AR/VR</span>
-              <span>GPS Tracking</span>
-              <span>Room Database</span>
-            </div>
-            <div class="project-gallery">
-              <img src="ippt-pushup.jpg" alt="Push-up Tracking" class="gallery-img" onerror="this.style.display='none';">
-              <img src="ippt-situp.jpg" alt="Sit-up Tracking" class="gallery-img" onerror="this.style.display='none';">
-              <img src="ippt-run.jpg" alt="Run Summary" class="gallery-img" onerror="this.style.display='none';">
-            </div>
-          </div>
+      <h2 class="section-title">Resume</h2>
+      <div class="resume-content">
+        <p>Download my detailed resume to learn more about my experience, skills, and achievements.</p>
+        <div class="resume-buttons">
+          <a href="resume.pdf" class="btn btn-primary" download>
+            <i class="fas fa-download"></i>
+            Download PDF
+          </a>
+          <a href="resume.pdf" class="btn btn-secondary" target="_blank">
+            <i class="fas fa-eye"></i>
+            View in Browser
+          </a>
         </div>
-
-        <div class="project-card">
-          <div class="project-image">
-            <div class="project-placeholder">
-              <i class="fas fa-mobile-alt"></i>
-            </div>
-          </div>
-          <div class="project-content">
-            <h3>Inventory Management Mobile App</h3>
-            <p>Developed a mobile application for real-time inventory tracking at NEC Asia Pacific Pte Ltd. Features include barcode scanning, push notifications, and user-friendly interface design.</p>
-            <div class="project-tech">
-              <span>React Native</span>
-              <span>Barcode Scanning</span>
-              <span>Push Notifications</span>
-            </div>
-            <div class="project-links">
-              <a href="#" class="project-link"><i class="fas fa-building"></i> NEC Asia Pacific</a>
-              <a href="#" class="project-link"><i class="fas fa-calendar"></i> Feb 2021 - Apr 2021</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-image">
-            <div class="project-placeholder">
-              <i class="fas fa-laptop-code"></i>
-            </div>
-          </div>
-          <div class="project-content">
-            <h3>Inventory Management Website</h3>
-            <p>Designed and developed a comprehensive inventory management website for NEC Asia Pacific Pte Ltd. Implemented features like inventory tracking, automated notifications, and usage analytics.</p>
-            <div class="project-tech">
-              <span>Web Development</span>
-              <span>Inventory Tracking</span>
-              <span>Analytics</span>
-            </div>
-            <div class="project-links">
-              <a href="#" class="project-link"><i class="fas fa-building"></i> NEC Asia Pacific</a>
-              <a href="#" class="project-link"><i class="fas fa-calendar"></i> Sep 2020 - Jan 2021</a>
-            </div>
-          </div>
-        </div>
-
-                 <div class="project-card">
-           <div class="project-image">
-             <div class="project-placeholder">
-               <i class="fas fa-robot"></i>
-             </div>
-           </div>
-           <div class="project-content">
-             <h3>AI Job Matching Platform</h3>
-             <p>Developed an AI-driven platform that intelligently matches job seekers to suitable job openings using resume parsing and natural language processing. Features include skill extraction, semantic analysis, and personalized cover letter generation.</p>
-             <div class="project-tech">
-               <span>NLP</span>
-               <span>Machine Learning</span>
-               <span>Python</span>
-               <span>AI/ML</span>
-             </div>
-             <div class="project-links">
-               <a href="#" class="project-link"><i class="fas fa-trophy"></i> NUS-Guru Innovation</a>
-               <a href="#" class="project-link"><i class="fas fa-calendar"></i> 2025</a>
-             </div>
-           </div>
-         </div>
       </div>
     </div>
   </section>
@@ -576,44 +636,29 @@
           <h3>Let's work together!</h3>
           <p>I'm always interested in new opportunities and exciting projects. Whether you have a question or just want to say hi, feel free to reach out!</p>
           <div class="contact-methods">
-                         <div class="contact-method">
-               <i class="fas fa-envelope"></i>
-               <div>
-                 <h4>Email</h4>
-                 <p>shanjinkok@gmail.com</p>
-               </div>
-             </div>
-             <div class="contact-method">
-               <i class="fab fa-linkedin"></i>
-               <div>
-                 <h4>LinkedIn</h4>
-                 <p>linkedin.com/in/shanjin-kok</p>
-               </div>
-             </div>
-             <div class="contact-method">
-               <i class="fab fa-github"></i>
-               <div>
-                 <h4>GitHub</h4>
-                 <p>github.com/shxnzzz</p>
-               </div>
-             </div>
+            <div class="contact-method">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <h4>Email</h4>
+                <a href="mailto:shanjinkok@gmail.com" class="contact-link">shanjinkok@gmail.com</a>
+              </div>
+            </div>
+            <div class="contact-method">
+              <i class="fab fa-linkedin"></i>
+              <div>
+                <h4>LinkedIn</h4>
+                <a href="https://linkedin.com/in/shanjin-kok" target="_blank" class="contact-link">linkedin.com/in/shanjin-kok</a>
+              </div>
+            </div>
+            <div class="contact-method">
+              <i class="fab fa-github"></i>
+              <div>
+                <h4>GitHub</h4>
+                <a href="https://github.com/shxnzzz" target="_blank" class="contact-link">github.com/shxnzzz</a>
+              </div>
+            </div>
           </div>
         </div>
-        <form class="contact-form">
-          <div class="form-group">
-            <input type="text" id="name" name="name" placeholder="Your Name" required>
-          </div>
-          <div class="form-group">
-            <input type="email" id="email" name="email" placeholder="Your Email" required>
-          </div>
-          <div class="form-group">
-            <input type="text" id="subject" name="subject" placeholder="Subject" required>
-          </div>
-          <div class="form-group">
-            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Send Message</button>
-        </form>
       </div>
     </div>
   </section>

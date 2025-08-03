@@ -280,6 +280,24 @@ function checkCSSLoaded() {
   }
 }
 
+// Project toggle functionality
+function toggleProject(projectCard) {
+  const expandedContent = projectCard.querySelector('.project-expanded-content');
+  const expandIndicator = projectCard.querySelector('.expand-indicator i');
+  
+  if (expandedContent.style.display === 'none') {
+    expandedContent.style.display = 'block';
+    expandIndicator.classList.remove('fa-chevron-down');
+    expandIndicator.classList.add('fa-chevron-up');
+    projectCard.classList.add('expanded');
+  } else {
+    expandedContent.style.display = 'none';
+    expandIndicator.classList.remove('fa-chevron-up');
+    expandIndicator.classList.add('fa-chevron-down');
+    projectCard.classList.remove('expanded');
+  }
+}
+
 // Run CSS check after page loads
 window.addEventListener('load', checkCSSLoaded);
 
