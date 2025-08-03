@@ -254,6 +254,35 @@ document.querySelectorAll('.contact-method').forEach(method => {
   }
 });
 
+// Check if CSS is loaded properly
+function checkCSSLoaded() {
+  const testElement = document.createElement('div');
+  testElement.style.position = 'absolute';
+  testElement.style.left = '-9999px';
+  testElement.style.top = '-9999px';
+  document.body.appendChild(testElement);
+  
+  const computedStyle = window.getComputedStyle(testElement);
+  const isCSSLoaded = computedStyle.position === 'absolute';
+  
+  document.body.removeChild(testElement);
+  
+  if (!isCSSLoaded) {
+    console.warn('CSS may not be loading properly on GitHub Pages');
+    // Add additional fallback styles if needed
+    const fallbackStyle = document.createElement('style');
+    fallbackStyle.textContent = `
+      body { font-size: 16px !important; }
+      .hero-title { font-size: 3.5rem !important; }
+      .container { max-width: 1200px !important; margin: 0 auto !important; padding: 0 2rem !important; }
+    `;
+    document.head.appendChild(fallbackStyle);
+  }
+}
+
+// Run CSS check after page loads
+window.addEventListener('load', checkCSSLoaded);
+
 // Add CSS for active navigation link
 const style = document.createElement('style');
 style.textContent = `
