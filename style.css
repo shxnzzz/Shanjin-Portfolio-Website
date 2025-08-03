@@ -508,16 +508,32 @@ section {
 .skill-item {
   background: #e0e7ff;
   color: #3730a3;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
 }
 
 .skill-item:hover {
   background: #c7d2fe;
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.skill-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.skill-item i {
+  font-size: 1rem;
+  color: #3730a3;
 }
 
 /* Projects Section */
