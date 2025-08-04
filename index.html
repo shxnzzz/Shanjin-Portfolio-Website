@@ -73,7 +73,7 @@
      /* Projects Section Fallback */
      .projects { background: #f8fafc; }
      .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; max-width: 1200px; margin: 0 auto; }
-     .project-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); }
+     .project-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); height: 200px; display: flex; flex-direction: column; }
      .project-image { height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; }
      .project-placeholder { font-size: 3rem; color: rgba(255, 255, 255, 0.7); }
      .project-content { padding: 2rem; }
@@ -121,9 +121,9 @@
      
      /* New Project Structure Fallback */
      .project-card { cursor: pointer; transition: all 0.3s ease; }
-     .project-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1rem; }
+     .project-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1rem; flex: 1; }
      .project-basic-info { flex: 1; display: flex; flex-direction: column; gap: 0.75rem; }
-     .project-basic-info h3 { margin: 0; font-size: 1.4rem; font-weight: 600; color: #1f2937; }
+     .project-basic-info h3 { margin: 0; font-size: 1.4rem; font-weight: 600; color: #1f2937; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; }
      .expand-indicator { align-self: flex-end; color: #6b7280; transition: transform 0.3s ease; }
      .project-expanded-content { padding-top: 1rem; border-top: 1px solid #e5e7eb; }
      .contact-link { color: #2563eb; text-decoration: none; transition: color 0.3s ease; }
