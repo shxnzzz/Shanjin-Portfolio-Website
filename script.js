@@ -409,7 +409,41 @@ function openProjectModal(projectId) {
             images: ['honestystay1.jpg', 'honestystay2.jpg', 'honestystay3.jpg', 'honestystay4.jpg', 'honestystay5.jpg', 'honestystay6.jpg', 'honestystay7.jpg']
           };
           break;
-      }
+        case 'smartwatch':
+          projectData = {
+            title: 'Smartwatch Step-Tracker',
+            description: 'Developed a wearable smartwatch using the TinyDuino platform that tracks the number of steps taken, calories burnt, and distance travelled by the user. An accompanying Android application was built to visualize the data in real-time. This project combined both hardware and software development, bridging embedded systems with mobile app integration.',
+            tech: ['Hardware: TinyDuino Platform', 'Embedded Programming: C++, Arduino IDE', 'Mobile Development: Android Studio, Java', 'Integration: Communication between smartwatch and mobile app', 'Real-time Data Sync: Live fitness metrics visualization'],
+            features: [
+              'Hardware Development: Built a functional smartwatch using TinyDuino modules',
+              'Embedded Programming: Implemented step detection and tracking using C++ on Arduino IDE',
+              'Mobile App: Designed an Android application to display live fitness metrics',
+              'Integration: Enabled communication between smartwatch and mobile app for real-time data sync'
+            ],
+            role: 'Developed a complete wearable fitness tracking system combining hardware and software components.',
+            achievement: 'Successfully created a functional smartwatch with real-time data visualization through mobile app integration.',
+            images: ['smartwatch1.jpg', 'smartwatch2.jpg']
+                      };
+            break;
+          case 'shoe-inventory':
+            projectData = {
+              title: 'Shoe Inventory Management System',
+              description: 'A web-based NoSQL inventory management system built for shoe retailers to track stock levels, sales, and user data across multiple store locations. Designed to address challenges like overstocking, stockouts, and inconsistent inventory data, the system provides real-time analytics and streamlined CRUD operations.',
+              tech: ['Backend: PHP', 'Frontend: HTML, CSS, JavaScript, Bootstrap', 'Database: MongoDB Atlas (NoSQL)', 'Tools: Git, Data Analytics', 'Concepts: NoSQL schema design, indexing, concurrency handling, performance optimization, cloud deployment'],
+              features: [
+                'Backend Development: Built using PHP to manage CRUD operations for inventory, users, and sales records',
+                'Frontend Development: Implemented using HTML, CSS, JavaScript, and Bootstrap to provide a responsive and intuitive UI',
+                'Database: Used MongoDB Atlas, a fully managed cloud NoSQL database, with five key collections (Products, Stocks, Stores, Orders, Users)',
+                'Analytics & Reporting: Designed dashboards with features like revenue comparison, stock-to-sales ratio, and product performance',
+                'Advanced Features: Indexing for query performance, optimistic concurrency control for simultaneous edits, pagination for scalable data retrieval',
+                'Dataset: Populated using Kaggle\'s Shein footwear dataset and custom-generated data with Python scripts'
+              ],
+              role: 'Developed a comprehensive NoSQL inventory management system with real-time analytics and CRUD operations.',
+              achievement: 'Successfully created a scalable solution for inventory tracking with advanced features like concurrency control and performance optimization.',
+              images: ['ShoeInventory1.jpg', 'ShoeInventory2.jpg', 'ShoeInventory3.jpg', 'ShoeInventory4.jpg', 'ShoeInventory5.jpg', 'ShoeInventory6.jpg']
+            };
+            break;
+        }
   
   // Populate modal content
   modalContent.innerHTML = `
