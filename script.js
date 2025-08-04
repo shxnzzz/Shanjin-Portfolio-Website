@@ -333,7 +333,7 @@ function openProjectModal(projectId) {
         ],
         role: 'Designed and developed an inventory management website focusing on seamless tracking of inventory movement.',
         achievement: 'Optimized operations through key features like inventory tracking, automated notifications, and usage analytics.',
-        images: []
+        images: ['inventoryweb1.jpg', 'inventoryweb2.jpg', 'inventoryweb3.jpg', 'inventoryweb4.jpg']
       };
       break;
     case 'ai-job':
@@ -351,7 +351,7 @@ function openProjectModal(projectId) {
         ],
         role: 'Designed and developed an AI-driven job matching platform featuring comprehensive NLP capabilities.',
         achievement: 'Successfully participated in NUS-Guru Network Innovation AI 2025 competition.',
-        images: []
+        images: ['JobMatching1.jpg', 'JobMatching2.jpg', 'JobMatching3.jpg', 'JobMatching4.jpg', 'JobMatching5.jpg', 'JobMatching6.jpg']
       };
       break;
     case 'healthy-hero':
