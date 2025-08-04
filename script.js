@@ -280,23 +280,220 @@ function checkCSSLoaded() {
   }
 }
 
-// Project toggle functionality
-function toggleProject(projectCard) {
-  const expandedContent = projectCard.querySelector('.project-expanded-content');
-  const expandIndicator = projectCard.querySelector('.expand-indicator i');
+// Project modal functionality
+function openProjectModal(projectId) {
+  const modal = document.getElementById('projectModal');
+  const modalContent = document.getElementById('modalContent');
   
-  if (expandedContent.style.display === 'none') {
-    expandedContent.style.display = 'block';
-    expandIndicator.classList.remove('fa-chevron-down');
-    expandIndicator.classList.add('fa-chevron-up');
-    projectCard.classList.add('expanded');
-  } else {
-    expandedContent.style.display = 'none';
-    expandIndicator.classList.remove('fa-chevron-up');
-    expandIndicator.classList.add('fa-chevron-down');
-    projectCard.classList.remove('expanded');
-  }
+  let projectData = {};
+  
+  switch(projectId) {
+    case 'ippt':
+      projectData = {
+        title: 'Interactive Physical Proficiency Trainer (IPPT Fitness App)',
+        description: 'An AI integrated android application designed to help users enhance their ippt performance. The app features real-time posture detection and correction for push ups and sit up using camera based ai, run tracking via gps and ar guided fitness tutorials to ensure proper form. User can view detailed summarised of their workout performance, making training measurable and engaging.',
+        tech: ['Android Development: Kotlin, Jetpack Compose', 'AI & Pose Detection: MediaPipe, TensorFlow Lite', 'Augmented Reality: ARCore', 'Location Services: Google Maps SDK, GPS tracking', 'Data Storage & State Management: Room DB, ViewModel, LiveData', 'UI/UX: Material Design, custom animations', 'Testing & Debugging: Android Emulator, Espresso'],
+        features: [
+          'Real-time push-up & sit-up tracking using Google ML Kit Pose Detection',
+          'AR tutorials for correct form via Google Scene Viewer',
+          'GPS-based 2.4km run tracking with live pace, distance & route via Google Maps',
+          'Offline workout summary storage using Room database'
+        ],
+        role: 'Developed the full running tracker module, integrating GPS, live tracking, pace calculation, and route visualization.',
+        achievement: 'Over 90% detection accuracy and high user satisfaction in usability tests.',
+        images: ['ippt-home.jpg','ippt-pushup.jpg', 'ippt-situp.jpg', 'ippt-run.jpg', 'ippt-summary.jpg']
+      };
+      break;
+    case 'inventory':
+      projectData = {
+        title: 'Inventory Management Mobile App',
+        description: 'Developed a mobile application for real-time inventory tracking at NEC Asia Pacific Pte Ltd. Features include barcode scanning, push notifications, and user-friendly interface design.',
+        tech: ['React Native', 'Barcode Scanning', 'Push Notifications', 'Real-time Tracking'],
+        features: [
+          'Real-time inventory tracking',
+          'Barcode scanning capabilities',
+          'Push notifications for updates',
+          'User-friendly interface design'
+        ],
+        role: 'Enhanced company\'s inventory management system by developing a mobile app for real-time inventory tracking.',
+        achievement: 'Streamlined inventory processes and improved operational efficiency.',
+        images: []
+      };
+      break;
+    case 'inventory-web':
+      projectData = {
+        title: 'Inventory Management Website',
+        description: 'Designed and developed a comprehensive inventory management website for NEC Asia Pacific Pte Ltd. Implemented features like inventory tracking, automated notifications, and usage analytics.',
+        tech: ['Web Development', 'Inventory Tracking', 'Analytics', 'Automated Notifications'],
+        features: [
+          'Comprehensive inventory tracking',
+          'Automated notifications system',
+          'Usage analytics and reporting',
+          'User-friendly digital solutions'
+        ],
+        role: 'Designed and developed an inventory management website focusing on seamless tracking of inventory movement.',
+        achievement: 'Optimized operations through key features like inventory tracking, automated notifications, and usage analytics.',
+        images: []
+      };
+      break;
+    case 'ai-job':
+      projectData = {
+        title: 'AI Job Matching Platform',
+        description: 'Developed an AI-driven platform that intelligently matches job seekers to suitable job openings using resume parsing and natural language processing. Features include skill extraction, semantic analysis, and personalized cover letter generation.',
+        tech: ['NLP', 'Machine Learning', 'Python', 'AI/ML', 'Resume Parsing'],
+        features: [
+          'NLP-powered resume and job description analysis',
+          'Skill and experience extraction using custom pipelines',
+          'Matching algorithm with scoring logic based on embeddings',
+          'ATS optimization suggestions',
+          'AI-generated personalized cover letters',
+          'Clean UI with integrated job search and one-click apply functionality'
+        ],
+        role: 'Designed and developed an AI-driven job matching platform featuring comprehensive NLP capabilities.',
+        achievement: 'Successfully participated in NUS-Guru Network Innovation AI 2025 competition.',
+        images: []
+      };
+      break;
+    case 'healthy-hero':
+      projectData = {
+        title: 'Healthy Hero - Object-Oriented 2D Game Engine',
+        description: 'A 2D arcade-style game developed using the LibGDX framework, focusing on promoting healthy eating through engaging gameplay. The game features multiple levels, boss fights, food-based entities (e.g., apple, banana, hamburger), and educational menu content. The architecture is designed with a clear separation between a reusable game engine layer and a game-specific logic layer, demonstrating clean modular design and adherence to SOLID principles.',
+        tech: ['Language & Engine: Java, LibGDX, LWJGL', 'Architecture: Layered architecture with Game Layer and Engine Layer', 'Design Patterns: Singleton, Factory, Abstract Class Inheritance', 'OOP Principles: SOLID (SRP, OCP, LSP, ISP, DIP), Encapsulation, Polymorphism', 'Game Engine Components: Custom collision manager and AI movement manager', 'Entity and scene lifecycle management', 'Audio handling via a centralized audio manager', 'Rendering & UI: SpriteBatch, ShapeRenderer, screen transitions', 'Other Skills: UML Design, technical documentation, group collaboration'],
+        features: [
+          'Multiple levels with increasing difficulty and boss fights',
+          'Food-based entities (apple, banana, hamburger) with unique behaviors',
+          'Educational menu content promoting healthy eating habits',
+          'Laser beam shooting mechanics and AI boss pursuit',
+          'Screen transitions and dynamic health-based scoring system',
+          'Robust systems for input/output, movement, collision detection, AI behavior, audio playback, and scene management',
+          'Clean modular design with clear separation between game engine and game-specific logic layers'
+        ],
+        role: 'Developed a comprehensive 2D game engine with layered architecture, implementing SOLID principles and design patterns.',
+        achievement: 'Successfully created an engaging educational game that promotes healthy eating while demonstrating advanced software engineering principles.',
+        images: ['healthy-hero-home.jpg', 'healthy-hero-menu1.jpg', 'healthy-hero-menu2.jpg', 'healthy-hero-game.jpg']
+      };
+      break;
+    case 'easyvpn':
+      projectData = {
+        title: 'EasyVPN: Secure Web Access Platform',
+        description: 'EasyVPN is a responsive, feature-rich web application that simulates a VPN service provider. Users can register, choose from various VPN plans, manage services like email routing and VPN server selection, and handle payments securely. Admins can perform full CRUD operations on users and plans via a dedicated dashboard, including bulk uploads. The project emphasizes usability, security, and scalability.',
+        tech: ['Frontend: HTML5, CSS3, JavaScript, Bootstrap, SweetAlert2, Chart.js', 'Backend: PHP, AJAX, jQuery', 'Database: MySQL', 'Authentication & Security: Session Management, Password Hashing, Input Sanitization, SQL Injection Prevention', 'Other Tools: GitHub (Version Control), Google Cloud Platform (VM Deployment)'],
+        features: [
+          'User Authentication: Secure login, registration, and persistent session handling',
+          'Plan Management: Browse, purchase, and manage VPN subscription plans',
+          'Payment System: Card info handling with validation and future-use option',
+          'User Dashboard: VPN country selection, email management, and account info',
+          'Admin Dashboard: CRUD operations for users and plans, CSV bulk upload',
+          'Responsive Design: Mobile-friendly UI using Bootstrap',
+          'Security: Proper sanitization, hashed credentials, and secure form submission'
+        ],
+        role: 'Developed a comprehensive VPN service platform with full-stack implementation including user authentication, payment processing, and admin dashboard.',
+        achievement: 'Successfully created a scalable web application with robust security features and responsive design.',
+                    images: ['VPNWeb1.jpg', 'VPNWeb2.jpg', 'VPNWeb3.jpg', 'VPNWeb4.jpg']
+          };
+          break;
+        case 'honestystay':
+          projectData = {
+            title: 'HonestStay – AI-Powered Hotel Review Credibility Platform',
+            description: 'HonestStay is a web-based platform that identifies and filters out AI-generated fake hotel reviews to help users make more trustworthy booking decisions. The app uses sentiment analysis and natural language processing (NLP) models to distinguish between genuine human-generated content (HGC) and AI-generated content (AIGC), assigning each hotel a credibility rating (A+ to B-) based on verified review data.',
+            tech: ['Frontend: HTML5, CSS3, JavaScript, Jinja (Flask templating)', 'Backend: Python, Flask', 'AI/NLP: Transformer models, NLTK Lexicon Algorithm', 'Data Scraping: BeautifulSoup (for hotel review data)', 'Visualization: Star-based review metrics and letter-grade ratings'],
+            features: [
+              'AI-generated review detection via NLP transformers',
+              'HonestStay hotel rating system',
+              'Detailed review insights and sentiment metrics',
+              'Real-time search and data filtering',
+              'Modern, user-friendly web interface'
+            ],
+            role: 'Developed an AI-powered platform for detecting fake hotel reviews using NLP and sentiment analysis.',
+            achievement: 'Successfully created a tool that helps users make more informed booking decisions by filtering out AI-generated content.',
+            images: ['honestystay1.jpg', 'honestystay2.jpg', 'honestystay3.jpg', 'honestystay4.jpg', 'honestystay5.jpg', 'honestystay6.jpg', 'honestystay7.jpg']
+          };
+          break;
+      }
+  
+  // Populate modal content
+  modalContent.innerHTML = `
+    <h2 class="modal-project-title">${projectData.title}</h2>
+    <p class="modal-project-description">${projectData.description}</p>
+    
+    <div class="modal-project-tech">
+      ${projectData.tech.map(tech => `<span>${tech}</span>`).join('')}
+    </div>
+    
+    <div class="modal-project-features">
+      <h4>Key Features:</h4>
+      <ul>
+        ${projectData.features.map(feature => `<li>${feature}</li>`).join('')}
+      </ul>
+    </div>
+    
+    ${projectId !== 'ippt' ? `
+      <div class="modal-project-role">
+        <h4>My Role:</h4>
+        <p>${projectData.role}</p>
+      </div>
+    ` : ''}
+    
+    <div class="modal-project-achievement">
+      <p><strong>Achievement:</strong> ${projectData.achievement}</p>
+    </div>
+    
+    ${projectData.images.length > 0 ? `
+      <div class="modal-project-gallery">
+        ${projectData.images.map(img => `
+          <img src="${img}" alt="Project Screenshot" class="modal-gallery-img" onclick="openImageModal('${img}')" onerror="this.style.display='none';">
+        `).join('')}
+      </div>
+    ` : ''}
+  `;
+  
+  modal.style.display = 'block';
+  document.body.style.overflow = 'hidden';
 }
+
+function closeProjectModal() {
+  const modal = document.getElementById('projectModal');
+  modal.style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
+
+// Full size image modal functions
+function openImageModal(imageSrc) {
+  const imageModal = document.getElementById('imageModal');
+  const fullSizeImage = document.getElementById('fullSizeImage');
+  
+  fullSizeImage.src = imageSrc;
+  imageModal.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImageModal() {
+  const imageModal = document.getElementById('imageModal');
+  imageModal.style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
+
+// Close modal when clicking outside of it
+window.addEventListener('click', (event) => {
+  const projectModal = document.getElementById('projectModal');
+  const imageModal = document.getElementById('imageModal');
+  
+  if (event.target === projectModal) {
+    closeProjectModal();
+  }
+  
+  if (event.target === imageModal) {
+    closeImageModal();
+  }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    closeProjectModal();
+    closeImageModal();
+  }
+});
 
 // Run CSS check after page loads
 window.addEventListener('load', checkCSSLoaded);

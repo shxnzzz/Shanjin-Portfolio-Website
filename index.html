@@ -129,6 +129,30 @@
      .contact-link { color: #2563eb; text-decoration: none; transition: color 0.3s ease; }
      .contact-link:hover { color: #1d4ed8; text-decoration: underline; }
      
+     /* Modal Fallback */
+     .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
+     .modal-content { background-color: white; margin: 5% auto; padding: 2rem; border-radius: 12px; width: 90%; max-width: 800px; max-height: 80vh; overflow-y: auto; position: relative; }
+     .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; position: absolute; top: 1rem; right: 1.5rem; }
+     .close:hover { color: #000; }
+     .modal-project-title { font-size: 2rem; font-weight: 700; color: #1f2937; margin-bottom: 1rem; padding-right: 2rem; }
+     .modal-project-description { font-size: 1.1rem; color: #6b7280; line-height: 1.7; margin-bottom: 2rem; }
+     .modal-project-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+     .modal-project-tech span { background: #e0e7ff; color: #3730a3; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 500; }
+     .modal-project-features { margin-bottom: 2rem; }
+     .modal-project-features h4 { font-size: 1.2rem; font-weight: 600; color: #1f2937; margin-bottom: 1rem; }
+     .modal-project-features ul { list-style: none; padding: 0; }
+     .modal-project-features li { position: relative; padding-left: 1.5rem; margin-bottom: 0.75rem; color: #4b5563; line-height: 1.6; }
+     .modal-project-features li::before { content: '▸'; position: absolute; left: 0; color: #10b981; font-weight: bold; }
+     .modal-project-role { background: #f0f9ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #0ea5e9; margin-bottom: 2rem; }
+     .modal-project-role h4 { font-size: 1.1rem; font-weight: 600; color: #0c4a6e; margin-bottom: 0.5rem; }
+     .modal-project-role p { color: #0369a1; margin: 0; line-height: 1.6; }
+     .modal-project-achievement { background: #f0fdf4; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #10b981; margin-bottom: 2rem; }
+                .modal-project-achievement p { color: #065f46; margin: 0; line-height: 1.6; }
+           .modal-project-gallery { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+           .modal-gallery-img { width: 100%; max-height: 400px; object-fit: contain; border-radius: 8px; border: 2px solid #e5e7eb; cursor: pointer; background-color: #f8f9fa; }
+     .image-modal-content { background-color: rgba(0, 0, 0, 0.9); display: flex; justify-content: center; align-items: center; padding: 1rem; max-width: 95vw; max-height: 95vh; margin: 2.5vh auto; }
+     .full-size-image { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+     
      /* Footer Fallback */
      .footer { background: #1f2937; color: white; padding: 2rem 0; }
      .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
@@ -150,6 +174,9 @@
        .resume-buttons .btn { width: 100%; max-width: 300px; justify-content: center; }
        .skills-grid { grid-template-columns: repeat(2, 1fr); }
        .footer-content { flex-direction: column; text-align: center; }
+       .modal-content { margin: 10% auto; padding: 1.5rem; width: 95%; }
+       .modal-project-title { font-size: 1.5rem; padding-right: 1rem; }
+       .modal-project-gallery { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
      }
   </style>
 </head>
@@ -375,61 +402,23 @@
     <div class="container">
       <h2 class="section-title">Featured Projects</h2>
       <div class="projects-grid">
-        <div class="project-card" onclick="toggleProject(this)">
+        <div class="project-card" onclick="openProjectModal('ippt')">
           <div class="project-header">
-            <div class="project-image">
-              <img src="ippt-home.jpg" alt="IPPT Fitness App Home Screen" class="project-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-              <div class="project-placeholder" style="display: none;">
-                <i class="fas fa-dumbbell"></i>
-              </div>
-            </div>
             <div class="project-basic-info">
               <h3>Interactive Physical Proficiency Trainer (IPPT Fitness App)</h3>
               <div class="project-tech">
                 <span>Android</span>
-                <span>Google ML Kit</span>
-                <span>AR/VR</span>
-                <span>GPS Tracking</span>
-                <span>Room Database</span>
+                <span>Kotlin</span>
+                <span>MediaPipe</span>
+                <span>ARCore</span>
+                <span>Google Maps</span>
               </div>
-              <div class="expand-indicator">
-                <i class="fas fa-chevron-down"></i>
-              </div>
-            </div>
-          </div>
-          <div class="project-expanded-content" style="display: none;">
-            <p>Co-developed a mobile fitness app designed to help users improve their IPPT scores using only their smartphones—eliminating the need for external wearables.</p>
-            <div class="project-features">
-              <h4>Key Features:</h4>
-              <ul>
-                <li>Real-time push-up & sit-up tracking using Google ML Kit Pose Detection</li>
-                <li>AR tutorials for correct form via Google Scene Viewer</li>
-                <li>GPS-based 2.4km run tracking with live pace, distance & route via Google Maps</li>
-                <li>Offline workout summary storage using Room database</li>
-              </ul>
-            </div>
-            <div class="project-role">
-              <h4>My Role:</h4>
-              <p>Developed the full running tracker module, integrating GPS, live tracking, pace calculation, and route visualization.</p>
-            </div>
-            <div class="project-achievement">
-              <p><strong>Achievement:</strong> Over 90% detection accuracy and high user satisfaction in usability tests.</p>
-            </div>
-            <div class="project-gallery">
-              <img src="ippt-pushup.jpg" alt="Push-up Tracking" class="gallery-img" onerror="this.style.display='none';">
-              <img src="ippt-situp.jpg" alt="Sit-up Tracking" class="gallery-img" onerror="this.style.display='none';">
-              <img src="ippt-run.jpg" alt="Run Summary" class="gallery-img" onerror="this.style.display='none';">
             </div>
           </div>
         </div>
 
-        <div class="project-card" onclick="toggleProject(this)">
+        <div class="project-card" onclick="openProjectModal('inventory')">
           <div class="project-header">
-            <div class="project-image">
-              <div class="project-placeholder">
-                <i class="fas fa-mobile-alt"></i>
-              </div>
-            </div>
             <div class="project-basic-info">
               <h3>Inventory Management Mobile App</h3>
               <div class="project-tech">
@@ -437,27 +426,12 @@
                 <span>Barcode Scanning</span>
                 <span>Push Notifications</span>
               </div>
-              <div class="expand-indicator">
-                <i class="fas fa-chevron-down"></i>
-              </div>
-            </div>
-          </div>
-          <div class="project-expanded-content" style="display: none;">
-            <p>Developed a mobile application for real-time inventory tracking at NEC Asia Pacific Pte Ltd. Features include barcode scanning, push notifications, and user-friendly interface design.</p>
-            <div class="project-links">
-              <a href="#" class="project-link"><i class="fas fa-building"></i> NEC Asia Pacific</a>
-              <a href="#" class="project-link"><i class="fas fa-calendar"></i> Feb 2021 - Apr 2021</a>
             </div>
           </div>
         </div>
 
-        <div class="project-card" onclick="toggleProject(this)">
+        <div class="project-card" onclick="openProjectModal('inventory-web')">
           <div class="project-header">
-            <div class="project-image">
-              <div class="project-placeholder">
-                <i class="fas fa-laptop-code"></i>
-              </div>
-            </div>
             <div class="project-basic-info">
               <h3>Inventory Management Website</h3>
               <div class="project-tech">
@@ -465,27 +439,12 @@
                 <span>Inventory Tracking</span>
                 <span>Analytics</span>
               </div>
-              <div class="expand-indicator">
-                <i class="fas fa-chevron-down"></i>
-              </div>
-            </div>
-          </div>
-          <div class="project-expanded-content" style="display: none;">
-            <p>Designed and developed a comprehensive inventory management website for NEC Asia Pacific Pte Ltd. Implemented features like inventory tracking, automated notifications, and usage analytics.</p>
-            <div class="project-links">
-              <a href="#" class="project-link"><i class="fas fa-building"></i> NEC Asia Pacific</a>
-              <a href="#" class="project-link"><i class="fas fa-calendar"></i> Sep 2020 - Jan 2021</a>
             </div>
           </div>
         </div>
 
-        <div class="project-card" onclick="toggleProject(this)">
+        <div class="project-card" onclick="openProjectModal('ai-job')">
           <div class="project-header">
-            <div class="project-image">
-              <div class="project-placeholder">
-                <i class="fas fa-robot"></i>
-              </div>
-            </div>
             <div class="project-basic-info">
               <h3>AI Job Matching Platform</h3>
               <div class="project-tech">
@@ -494,21 +453,56 @@
                 <span>Python</span>
                 <span>AI/ML</span>
               </div>
-              <div class="expand-indicator">
-                <i class="fas fa-chevron-down"></i>
-              </div>
-            </div>
-          </div>
-          <div class="project-expanded-content" style="display: none;">
-            <p>Developed an AI-driven platform that intelligently matches job seekers to suitable job openings using resume parsing and natural language processing. Features include skill extraction, semantic analysis, and personalized cover letter generation.</p>
-            <div class="project-links">
-              <a href="#" class="project-link"><i class="fas fa-trophy"></i> NUS-Guru Innovation</a>
-              <a href="#" class="project-link"><i class="fas fa-calendar"></i> 2025</a>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+
+                        <div class="project-card" onclick="openProjectModal('healthy-hero')">
+                  <div class="project-header">
+                    <div class="project-basic-info">
+                      <h3>Healthy Hero - Object-Oriented 2D Game Engine</h3>
+                      <div class="project-tech">
+                        <span>Java</span>
+                        <span>LibGDX</span>
+                        <span>LWJGL</span>
+                        <span>OOP</span>
+                        <span>SOLID</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                                  <div class="project-card" onclick="openProjectModal('easyvpn')">
+                    <div class="project-header">
+                      <div class="project-basic-info">
+                        <h3>EasyVPN: Secure Web Access Platform</h3>
+                        <div class="project-tech">
+                          <span>PHP</span>
+                          <span>MySQL</span>
+                          <span>Bootstrap</span>
+                          <span>JavaScript</span>
+                          <span>AJAX</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="project-card" onclick="openProjectModal('honestystay')">
+                    <div class="project-header">
+                      <div class="project-basic-info">
+                        <h3>HonestStay – AI-Powered Hotel Review Credibility Platform</h3>
+                        <div class="project-tech">
+                          <span>Python</span>
+                          <span>Flask</span>
+                          <span>NLP</span>
+                          <span>AI</span>
+                          <span>BeautifulSoup</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
   </section>
 
   <!-- Education Section -->
@@ -676,6 +670,22 @@
       </div>
     </div>
   </footer>
+
+  <!-- Project Modals -->
+  <div id="projectModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeProjectModal()">&times;</span>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- Full Size Image Modal -->
+  <div id="imageModal" class="modal">
+    <div class="modal-content image-modal-content">
+      <span class="close" onclick="closeImageModal()">&times;</span>
+      <img id="fullSizeImage" src="" alt="Full size image" class="full-size-image">
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
