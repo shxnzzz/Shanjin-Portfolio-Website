@@ -5,13 +5,39 @@ const navMenu = document.querySelector('.nav-menu');
 hamburger.addEventListener('click', () => {
   hamburger.classList.toggle('active');
   navMenu.classList.toggle('active');
+  
+  // Prevent body scroll when menu is open
+  if (navMenu.classList.contains('active')) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
 });
 
 // Close mobile menu when clicking on a link
 document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
   hamburger.classList.remove('active');
   navMenu.classList.remove('active');
+  document.body.style.overflow = 'auto';
 }));
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+  if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+    hamburger.classList.remove('active');
+    navMenu.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+});
+
+// Close mobile menu on escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+    hamburger.classList.remove('active');
+    navMenu.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+});
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -180,14 +206,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Project card hover effects
+// Project card interactions (hover for desktop, touch for mobile)
 document.querySelectorAll('.project-card').forEach(card => {
+  // Desktop hover effects
   card.addEventListener('mouseenter', function() {
-    this.style.transform = 'translateY(-10px) scale(1.02)';
+    if (window.innerWidth > 768) {
+      this.style.transform = 'translateY(-10px) scale(1.02)';
+    }
   });
   
   card.addEventListener('mouseleave', function() {
-    this.style.transform = 'translateY(0) scale(1)';
+    if (window.innerWidth > 768) {
+      this.style.transform = 'translateY(0) scale(1)';
+    }
+  });
+
+  // Mobile touch effects
+  card.addEventListener('touchstart', function() {
+    if (window.innerWidth <= 768) {
+      this.style.transform = 'scale(0.98)';
+      this.style.transition = 'transform 0.1s ease';
+    }
+  });
+
+  card.addEventListener('touchend', function() {
+    if (window.innerWidth <= 768) {
+      this.style.transform = 'scale(1)';
+      this.style.transition = 'transform 0.2s ease';
+    }
   });
 });
 
@@ -239,6 +285,38 @@ window.addEventListener('load', () => {
   document.body.classList.add('loaded');
 });
 
+// Mobile performance optimizations
+if (window.innerWidth <= 768) {
+  // Reduce animations on mobile for better performance
+  document.documentElement.style.setProperty('--animation-duration', '0.2s');
+  
+  // Optimize scroll performance
+  let ticking = false;
+  function updateScrollEffects() {
+    // Your scroll effects here
+    ticking = false;
+  }
+  
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateScrollEffects);
+      ticking = true;
+    }
+  });
+}
+
+// Add mobile-specific touch improvements
+document.addEventListener('DOMContentLoaded', () => {
+  // Improve touch targets for mobile
+  if (window.innerWidth <= 768) {
+    const touchElements = document.querySelectorAll('.btn, .nav-link, .project-card, .skill-item, .contact-method');
+    touchElements.forEach(element => {
+      element.style.minHeight = '44px';
+      element.style.touchAction = 'manipulation';
+    });
+  }
+});
+
 // Copy email to clipboard functionality
 document.querySelectorAll('.contact-method').forEach(method => {
   const text = method.querySelector('p');
@@ -284,6 +362,9 @@ function checkCSSLoaded() {
 function openProjectModal(projectId) {
   const modal = document.getElementById('projectModal');
   const modalContent = document.getElementById('modalContent');
+  
+  // Prevent body scroll when modal is open
+  document.body.style.overflow = 'hidden';
   
   let projectData = {};
   
