@@ -17,9 +17,25 @@ A modern, responsive portfolio website built with HTML, CSS, and JavaScript. Thi
 ```
 portfolio-website/
 ├── index.html          # Main HTML file
-├── style.css           # CSS styles and responsive design
-├── script.js           # JavaScript functionality
-└── README.md           # This file
+├── CNAME               # Custom domain for GitHub Pages
+├── README.md           # This file
+├── css/
+│   └── style.css       # CSS styles and responsive design
+├── js/
+│   └── script.js       # JavaScript functionality
+├── images/
+│   ├── profile-image.jpg
+│   └── projects/       # One folder of screenshots per project
+│       ├── ai-job-matching/
+│       ├── easyvpn/
+│       ├── healthy-hero/
+│       ├── honestystay/
+│       ├── inventory-web/
+│       ├── ippt/
+│       ├── shoe-inventory/
+│       └── smartwatch/
+├── documents/          # Resume PDFs
+└── docs/               # Deployment and troubleshooting guides
 ```
 
 ## 🚀 Getting Started

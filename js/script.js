@@ -382,7 +382,23 @@ function openProjectModal(projectId) {
         ],
         role: 'Developed the full running tracker module, integrating GPS, live tracking, pace calculation, and route visualization.',
         achievement: 'Over 90% detection accuracy and high user satisfaction in usability tests.',
-        images: ['ippt-home.jpg','ippt-pushup.jpg', 'ippt-situp.jpg', 'ippt-run.jpg', 'ippt-summary.jpg']
+        images: ['images/projects/ippt/ippt-home.jpg','images/projects/ippt/ippt-pushup.jpg', 'images/projects/ippt/ippt-situp.jpg', 'images/projects/ippt/ippt-run.jpg', 'images/projects/ippt/ippt-summary.jpg']
+      };
+      break;
+    case 'agent-cfo':
+      projectData = {
+        title: 'Agent CFO – RAG Financial Agent',
+        description: 'A retrieval-augmented generation (RAG) agent built for a DBS challenge. It answers questions by retrieving relevant passages with a hybrid approach that combines BM25 keyword search with vector embeddings before passing them to a large language model.',
+        tech: ['Python', 'RAG', 'BM25', 'Vector Search', 'Embeddings', 'LLMs'],
+        features: [
+          'Hybrid retrieval combining BM25 keyword search with vector embeddings',
+          'LLM-generated answers grounded in retrieved passages',
+          'Retrieval quality evaluated with Recall@K and MRR',
+          'Side-by-side comparison and tuning of retrieval strategies'
+        ],
+        role: 'Built the RAG agent and its hybrid retrieval pipeline, and evaluated retrieval strategies with Recall@K and MRR.',
+        achievement: 'Delivered a working hybrid-retrieval agent for the DBS challenge, with measurable retrieval quality.',
+        images: []
       };
       break;
     case 'inventory':
@@ -414,7 +430,7 @@ function openProjectModal(projectId) {
         ],
         role: 'Designed and developed an inventory management website focusing on seamless tracking of inventory movement.',
         achievement: 'Optimized operations through key features like inventory tracking, automated notifications, and usage analytics.',
-        images: ['inventoryweb1.jpg', 'inventoryweb2.jpg', 'inventoryweb3.jpg', 'inventoryweb4.jpg']
+        images: ['images/projects/inventory-web/inventoryweb1.jpg', 'images/projects/inventory-web/inventoryweb2.jpg', 'images/projects/inventory-web/inventoryweb3.jpg', 'images/projects/inventory-web/inventoryweb4.jpg']
       };
       break;
     case 'ai-job':
@@ -431,8 +447,8 @@ function openProjectModal(projectId) {
           'Clean UI with integrated job search and one-click apply functionality'
         ],
         role: 'Designed and developed an AI-driven job matching platform featuring comprehensive NLP capabilities.',
-        achievement: 'Successfully participated in NUS-Guru Network Innovation AI 2025 competition.',
-        images: ['JobMatching1.jpg', 'JobMatching2.jpg', 'JobMatching3.jpg', 'JobMatching4.jpg', 'JobMatching5.jpg', 'JobMatching6.jpg']
+        achievement: 'Awarded a Certificate of Excellence at the NUS Guru AI Innovation Hackathon 2025.',
+        images: ['images/projects/ai-job-matching/JobMatching1.jpg', 'images/projects/ai-job-matching/JobMatching2.jpg', 'images/projects/ai-job-matching/JobMatching3.jpg', 'images/projects/ai-job-matching/JobMatching4.jpg', 'images/projects/ai-job-matching/JobMatching5.jpg', 'images/projects/ai-job-matching/JobMatching6.jpg']
       };
       break;
     case 'healthy-hero':
@@ -451,7 +467,7 @@ function openProjectModal(projectId) {
         ],
         role: 'Developed a comprehensive 2D game engine with layered architecture, implementing SOLID principles and design patterns.',
         achievement: 'Successfully created an engaging educational game that promotes healthy eating while demonstrating advanced software engineering principles.',
-        images: ['healthy-hero-home.jpg', 'healthy-hero-menu1.jpg', 'healthy-hero-menu2.jpg', 'healthy-hero-game.jpg']
+        images: ['images/projects/healthy-hero/healthy-hero-home.jpg', 'images/projects/healthy-hero/healthy-hero-menu1.jpg', 'images/projects/healthy-hero/healthy-hero-menu2.jpg', 'images/projects/healthy-hero/healthy-hero-game.jpg']
       };
       break;
     case 'easyvpn':
@@ -470,7 +486,7 @@ function openProjectModal(projectId) {
         ],
         role: 'Developed a comprehensive VPN service platform with full-stack implementation including user authentication, payment processing, and admin dashboard.',
         achievement: 'Successfully created a scalable web application with robust security features and responsive design.',
-                    images: ['VPNWeb1.jpg', 'VPNWeb2.jpg', 'VPNWeb3.jpg', 'VPNWeb4.jpg']
+                    images: ['images/projects/easyvpn/VPNWeb1.jpg', 'images/projects/easyvpn/VPNWeb2.jpg', 'images/projects/easyvpn/VPNWeb3.jpg', 'images/projects/easyvpn/VPNWeb4.jpg']
           };
           break;
         case 'honestystay':
@@ -487,7 +503,7 @@ function openProjectModal(projectId) {
             ],
             role: 'Developed an AI-powered platform for detecting fake hotel reviews using NLP and sentiment analysis.',
             achievement: 'Successfully created a tool that helps users make more informed booking decisions by filtering out AI-generated content.',
-            images: ['honestystay1.jpg', 'honestystay2.jpg', 'honestystay3.jpg', 'honestystay4.jpg', 'honestystay5.jpg', 'honestystay6.jpg', 'honestystay7.jpg']
+            images: ['images/projects/honestystay/honestystay1.jpg', 'images/projects/honestystay/honestystay2.jpg', 'images/projects/honestystay/honestystay3.jpg', 'images/projects/honestystay/honestystay4.jpg', 'images/projects/honestystay/honestystay5.jpg', 'images/projects/honestystay/honestystay6.jpg', 'images/projects/honestystay/honestystay7.jpg']
           };
           break;
         case 'smartwatch':
@@ -503,7 +519,7 @@ function openProjectModal(projectId) {
             ],
             role: 'Developed a complete wearable fitness tracking system combining hardware and software components.',
             achievement: 'Successfully created a functional smartwatch with real-time data visualization through mobile app integration.',
-            images: ['smartwatch1.jpg', 'smartwatch2.jpg']
+            images: ['images/projects/smartwatch/smartwatch1.jpg', 'images/projects/smartwatch/smartwatch2.jpg']
                       };
             break;
           case 'shoe-inventory':
@@ -521,7 +537,7 @@ function openProjectModal(projectId) {
               ],
               role: 'Developed a comprehensive NoSQL inventory management system with real-time analytics and CRUD operations.',
               achievement: 'Successfully created a scalable solution for inventory tracking with advanced features like concurrency control and performance optimization.',
-              images: ['ShoeInventory1.jpg', 'ShoeInventory2.jpg', 'ShoeInventory3.jpg', 'ShoeInventory4.jpg', 'ShoeInventory5.jpg', 'ShoeInventory6.jpg']
+              images: ['images/projects/shoe-inventory/ShoeInventory1.jpg', 'images/projects/shoe-inventory/ShoeInventory2.jpg', 'images/projects/shoe-inventory/ShoeInventory3.jpg', 'images/projects/shoe-inventory/ShoeInventory4.jpg', 'images/projects/shoe-inventory/ShoeInventory5.jpg', 'images/projects/shoe-inventory/ShoeInventory6.jpg']
             };
             break;
         }
