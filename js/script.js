@@ -435,20 +435,19 @@ function openProjectModal(projectId) {
       break;
     case 'ai-job':
       projectData = {
-        title: 'AI Job Matching Platform',
-        description: 'Developed an AI-driven platform that intelligently matches job seekers to suitable job openings using resume parsing and natural language processing. Features include skill extraction, semantic analysis, and personalized cover letter generation.',
-        tech: ['NLP', 'Machine Learning', 'Python', 'AI/ML', 'Resume Parsing'],
+        title: 'JobCupid: AI Job Matching Platform',
+        description: 'A full-stack job-matching app that turns a single resume upload into a ranked list of live job openings, replacing hours of manual searching.',
+        tech: ['Next.js', 'React', 'Node.js / Express', 'Python', 'OpenAI API'],
         features: [
-          'NLP-powered resume and job description analysis',
-          'Skill and experience extraction using custom pipelines',
-          'Matching algorithm with scoring logic based on embeddings',
-          'ATS optimization suggestions',
-          'AI-generated personalized cover letters',
-          'Clean UI with integrated job search and one-click apply functionality'
+          'LLM extraction of skills, seniority and suitable job titles from PDF resumes, using structured JSON outputs with server-side validation and prompt-injection safeguards',
+          'Ranking that combines OpenAI embedding similarity (70%) with whole-word skill matching (30%), plus de-duplication',
+          'Cut job-board requests per upload from up to 29 to 5, with results back in about 6 seconds',
+          'Production hardening: strict PDF validation, temporary file cleanup, per-IP rate limiting, CORS restrictions and secrets kept in environment variables',
+          'Accessible, mobile-first interface with editable AI results, pagination, loading and error states, and one-click AI cover letters'
         ],
-        role: 'Designed and developed an AI-driven job matching platform featuring comprehensive NLP capabilities.',
+        role: 'Built the full-stack app, from resume parsing and the ranking pipeline through to the production backend and the interface.',
         achievement: 'Awarded a Certificate of Excellence at the NUS Guru AI Innovation Hackathon 2025.',
-        images: ['images/projects/ai-job-matching/JobMatching1.jpg', 'images/projects/ai-job-matching/JobMatching2.jpg', 'images/projects/ai-job-matching/JobMatching3.jpg', 'images/projects/ai-job-matching/JobMatching4.jpg', 'images/projects/ai-job-matching/JobMatching5.jpg', 'images/projects/ai-job-matching/JobMatching6.jpg']
+        images: ['images/projects/ai-job-matching/jobcupid-1-home.png', 'images/projects/ai-job-matching/jobcupid-2-upload.png', 'images/projects/ai-job-matching/jobcupid-3-file.png', 'images/projects/ai-job-matching/jobcupid-4-analysing.png', 'images/projects/ai-job-matching/jobcupid-5-profile.png', 'images/projects/ai-job-matching/jobcupid-6-results.png', 'images/projects/ai-job-matching/jobcupid-7-cover-letter.png']
       };
       break;
     case 'healthy-hero':
