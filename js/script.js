@@ -447,6 +447,7 @@ function openProjectModal(projectId) {
         ],
         role: 'Built the full-stack app, from resume parsing and the ranking pipeline through to the production backend and the interface.',
         achievement: 'Awarded a Certificate of Excellence at the NUS Guru AI Innovation Hackathon 2025.',
+        liveUrl: 'https://job-cupid-one.vercel.app/',
         images: ['images/projects/ai-job-matching/jobcupid-1-home.png', 'images/projects/ai-job-matching/jobcupid-2-upload.png', 'images/projects/ai-job-matching/jobcupid-3-file.png', 'images/projects/ai-job-matching/jobcupid-4-analysing.png', 'images/projects/ai-job-matching/jobcupid-5-profile.png', 'images/projects/ai-job-matching/jobcupid-6-results.png', 'images/projects/ai-job-matching/jobcupid-7-cover-letter.png']
       };
       break;
@@ -545,6 +546,12 @@ function openProjectModal(projectId) {
   modalContent.innerHTML = `
     <h2 class="modal-project-title">${projectData.title}</h2>
     <p class="modal-project-description">${projectData.description}</p>
+
+    ${projectData.liveUrl ? `
+      <a href="${projectData.liveUrl}" class="btn btn-primary modal-live-link" target="_blank" rel="noopener noreferrer">
+        Visit live site
+      </a>
+    ` : ''}
     
     <div class="modal-project-tech">
       ${projectData.tech.map(tech => `<span>${tech}</span>`).join('')}

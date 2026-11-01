@@ -663,6 +663,31 @@ section {
   transform: translateY(-2px);
 }
 
+.project-live-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  align-self: flex-start;
+  position: relative;
+  z-index: 2;
+  color: white;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.project-live-link:hover {
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.modal-live-link {
+  margin-bottom: 1.5rem;
+}
+
 .project-links {
   display: flex;
   gap: 1rem;
