@@ -6,7 +6,7 @@ const PROJECT_LINKS = {
   'ippt':           { github: 'https://github.com/shxnzzz/ippt-fitness-tracker', demo: '' },
   'inventory':      { github: '', demo: '' },
   'inventory-web':  { github: '', demo: '' },
-  'ai-job':         { github: '', demo: 'https://job-cupid-one.vercel.app/' },
+  'ai-job':         { github: 'https://github.com/shxnzzz/JobCupid-', demo: 'https://job-cupid-one.vercel.app/' },
   'healthy-hero':   { github: '', demo: '' },
   'easyvpn':        { github: '', demo: '' },
   'honestystay':    { github: '', demo: '' },
