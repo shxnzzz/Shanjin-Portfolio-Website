@@ -1891,3 +1891,33 @@ section {
     image-rendering: crisp-edges;
   }
 }
+
+
+/* Project Code / Live demo links */
+.project-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.modal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+  padding: 0.6rem 1.25rem;
+}
+
+.btn.btn-outline:hover {
+  background: #2563eb;
+  color: white;
+}

@@ -1,3 +1,42 @@
+// Project links: paste your GitHub repo and live demo URLs here.
+// Leave a field as '' to hide that button on the card and in the project popup.
+const PROJECT_LINKS = {
+  'psa-automation': { github: '', demo: '' },
+  'agent-cfo':      { github: '', demo: '' },
+  'ippt':           { github: '', demo: '' },
+  'inventory':      { github: '', demo: '' },
+  'inventory-web':  { github: '', demo: '' },
+  'ai-job':         { github: '', demo: 'https://job-cupid-one.vercel.app/' },
+  'healthy-hero':   { github: '', demo: '' },
+  'easyvpn':        { github: '', demo: '' },
+  'honestystay':    { github: '', demo: '' },
+  'smartwatch':     { github: '', demo: '' },
+  'shoe-inventory': { github: '', demo: '' }
+};
+
+function projectLinksHTML(projectId, linkClass) {
+  const links = PROJECT_LINKS[projectId] || {};
+  let out = '';
+  if (links.github) {
+    out += `<a href="${links.github}" class="${linkClass}" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> Code</a>`;
+  }
+  if (links.demo) {
+    out += `<a href="${links.demo}" class="${linkClass}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Live demo</a>`;
+  }
+  return out;
+}
+
+// Add Code / Live demo buttons to each project card
+document.querySelectorAll('.project-card[data-project]').forEach(card => {
+  const html = projectLinksHTML(card.dataset.project, 'project-live-link');
+  if (!html) return;
+  const row = document.createElement('div');
+  row.className = 'project-card-links';
+  row.innerHTML = html;
+  row.querySelectorAll('a').forEach(a => a.addEventListener('click', e => e.stopPropagation()));
+  card.querySelector('.project-basic-info').appendChild(row);
+});
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -369,6 +408,23 @@ function openProjectModal(projectId) {
   let projectData = {};
   
   switch(projectId) {
+    case 'psa-automation':
+      projectData = {
+        title: 'Port Systems E2E Test Automation (PSA International)',
+        description: 'End-to-end test automation built during my internship at PSA International for Global PORTNET, the platform that handles cargo and vessel operations at the port. The suites drive the real portal through SSO and check every result beyond what is shown on screen.',
+        tech: ['Playwright', 'TypeScript', 'Page Object Model', 'SQL', 'Kafka', 'Azure DevOps'],
+        features: [
+          'Playwright and TypeScript suites using the Page Object Model, covering port-side cargo import/export and vessel-side operations modules',
+          'Three-layer verification for each test: UI behaviour, read-only SQL checks against the database, and audit-event assertions',
+          'Runs against real SSO and backends rather than mocks, with automatic test-data cleanup and generated evidence reports',
+          'Kafka message injection to drive event-based flows, with tests tagged into smoke, regression and end-to-end runs',
+          'Found defects through automation, including date parsing errors, timezone off-by-one bugs, wrong-row updates and duplicate-key clashes'
+        ],
+        role: 'Designed and built the suites end to end: page objects, database and audit checks, test-data cleanup and reporting.',
+        achievement: 'Gives the team repeatable automated checks with evidence reports for each module, and surfaced defects that were then fixed.',
+        images: []
+      };
+      break;
     case 'ippt':
       projectData = {
         title: 'Interactive Physical Proficiency Trainer (IPPT Fitness App)',
@@ -447,7 +503,6 @@ function openProjectModal(projectId) {
         ],
         role: 'Built the full-stack app, from resume parsing and the ranking pipeline through to the production backend and the interface.',
         achievement: 'Awarded a Certificate of Excellence at the NUS Guru AI Innovation Hackathon 2025.',
-        liveUrl: 'https://job-cupid-one.vercel.app/',
         images: ['images/projects/ai-job-matching/jobcupid-1-home.png', 'images/projects/ai-job-matching/jobcupid-2-upload.png', 'images/projects/ai-job-matching/jobcupid-3-file.png', 'images/projects/ai-job-matching/jobcupid-4-analysing.png', 'images/projects/ai-job-matching/jobcupid-5-profile.png', 'images/projects/ai-job-matching/jobcupid-6-results.png', 'images/projects/ai-job-matching/jobcupid-7-cover-letter.png']
       };
       break;
@@ -547,10 +602,8 @@ function openProjectModal(projectId) {
     <h2 class="modal-project-title">${projectData.title}</h2>
     <p class="modal-project-description">${projectData.description}</p>
 
-    ${projectData.liveUrl ? `
-      <a href="${projectData.liveUrl}" class="btn btn-primary modal-live-link" target="_blank" rel="noopener noreferrer">
-        Visit live site
-      </a>
+    ${projectLinksHTML(projectId, 'btn btn-outline') ? `
+      <div class="modal-links">${projectLinksHTML(projectId, 'btn btn-outline')}</div>
     ` : ''}
     
     <div class="modal-project-tech">
