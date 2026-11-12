@@ -3,7 +3,7 @@
 const PROJECT_LINKS = {
   'psa-automation': { github: '', demo: '' },
   'agent-cfo':      { github: '', demo: '' },
-  'ippt':           { github: '', demo: '' },
+  'ippt':           { github: 'https://github.com/shxnzzz/ippt-fitness-tracker', demo: '' },
   'inventory':      { github: '', demo: '' },
   'inventory-web':  { github: '', demo: '' },
   'ai-job':         { github: '', demo: 'https://job-cupid-one.vercel.app/' },
