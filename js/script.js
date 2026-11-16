@@ -3,6 +3,7 @@
 const PROJECT_LINKS = {
   'psa-automation': { github: '', demo: '' },
   'agent-cfo':      { github: '', demo: '' },
+  'smart-study-space': { github: 'https://github.com/shxnzzz/smart-study-space', demo: '' },
   'ippt':           { github: 'https://github.com/shxnzzz/ippt-fitness-tracker', demo: '' },
   'inventory':      { github: '', demo: '' },
   'inventory-web':  { github: '', demo: '' },
@@ -423,6 +424,23 @@ function openProjectModal(projectId) {
         role: 'Designed and built the suites end to end: page objects, database and audit checks, test-data cleanup and reporting.',
         achievement: 'Gives the team repeatable automated checks with evidence reports for each module, and surfaced defects that were then fixed.',
         images: []
+      };
+      break;
+    case 'smart-study-space':
+      projectData = {
+        title: 'Smart Study Space (Edge AI Seat & Noise Monitor)',
+        description: 'A real-time edge computing system that shows students which study areas have free seats and how noisy they are. Built by a team of five, it runs on-device AI inference and sensor fusion across three Raspberry Pis, with a serverless AWS dashboard. The first image below is a concept illustration of how it works; the rest are screenshots of the real dashboard and architecture.',
+        tech: ['Raspberry Pi', 'YOLOv11-Nano (ONNX)', 'OpenCV', 'MQTT', 'AWS Lambda, API Gateway, DynamoDB, S3', 'React', 'WebSockets'],
+        features: [
+          'Three-node Raspberry Pi system: YOLOv11-Nano people detection with mic-based noise measurement, ultrasonic seat sensing, and an MQTT gateway that combines both data sources',
+          'Solves the "chope" problem (a bag or laptop left on a seat to hold it) by fusing camera and sensor data, so each seat is labelled occupied, reserved or vacant',
+          'Designed for graceful degradation: if a node goes silent for over 60 seconds, the gateway switches to whichever data source is still working. A circuit breaker pauses cloud uploads when Wi-Fi drops, and a local dashboard keeps working offline',
+          'Data goes to the cloud through API Gateway, Lambda and DynamoDB, and a responsive React dashboard on S3 shows it',
+          'Found that uncapped inference made the Pi overheat and slow down within 10 minutes, and fixed it by capping the frame rate. Profiling also showed the sensor node was overpowered for its job, so a cheaper ESP32 board would do'
+        ],
+        role: 'Redesigned the React dashboard: connected it to the AWS API, built the ambient noise meter, and made the mobile layout with compact room cards.',
+        achievement: 'End-to-end latency of about 1.6 seconds, within the 2-second target.',
+        images: ['images/projects/smart-study-space/smartstudy-0-concept.png', 'images/projects/smart-study-space/smartstudy-1-dashboard.png', 'images/projects/smart-study-space/smartstudy-2-mobile.png', 'images/projects/smart-study-space/smartstudy-3-mobile-room.png', 'images/projects/smart-study-space/smartstudy-4-architecture.png']
       };
       break;
     case 'ippt':
