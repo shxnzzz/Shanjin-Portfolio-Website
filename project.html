@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <meta name="theme-color" content="#2563eb" />
+  <title>Project | Kok Shanjin</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="subpage">
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="index.html">KSJ</a>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="index.html#home" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="index.html#experience" class="nav-link">Experience</a></li>
+        <li class="nav-item"><a href="index.html#skills" class="nav-link">Skills</a></li>
+        <li class="nav-item"><a href="index.html#projects" class="nav-link active">Projects</a></li>
+        <li class="nav-item"><a href="index.html#education" class="nav-link">Education</a></li>
+        <li class="nav-item"><a href="index.html#resume" class="nav-link">Resume</a></li>
+        <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="project-page container" id="projectPage"></main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p>&copy; 2026 Kok Shanjin. All rights reserved.</p>
+        <div class="social-links">
+          <a href="https://github.com/shxnzzz" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+          <a href="https://linkedin.com/in/shanjin-kok" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="projectModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeProjectModal()">&times;</span>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <div id="imageModal" class="modal">
+    <div class="modal-content image-modal-content">
+      <span class="close" onclick="closeImageModal()">&times;</span>
+      <img id="fullSizeImage" src="" alt="Full size image" class="full-size-image">
+    </div>
+  </div>
+
+  <script src="js/projects-data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>

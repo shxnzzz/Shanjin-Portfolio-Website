@@ -1,22 +1,19 @@
-// Project links: paste your GitHub repo and live demo URLs here.
-// Leave a field as '' to hide that button on the card and in the project popup.
-const PROJECT_LINKS = {
-  'psa-automation': { github: '', demo: '' },
-  'agent-cfo':      { github: '', demo: '' },
-  'smart-study-space': { github: 'https://github.com/shxnzzz/smart-study-space', demo: '' },
-  'ippt':           { github: 'https://github.com/shxnzzz/ippt-fitness-tracker', demo: '' },
-  'inventory':      { github: '', demo: '' },
-  'inventory-web':  { github: '', demo: '' },
-  'ai-job':         { github: 'https://github.com/shxnzzz/JobCupid-', demo: 'https://job-cupid-one.vercel.app/' },
-  'healthy-hero':   { github: '', demo: '' },
-  'easyvpn':        { github: '', demo: '' },
-  'honestystay':    { github: '', demo: '' },
-  'smartwatch':     { github: '', demo: '' },
-  'shoe-inventory': { github: '', demo: '' }
-};
+// Project content comes from js/projects-data.js (PROJECTS, FEATURED_PROJECTS, OTHER_PROJECTS).
+
+function escapeHTML(text) {
+  return String(text).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function projectImages(project) {
+  return (project.images || []).map(img => (typeof img === 'string' ? { src: img, caption: '' } : img));
+}
+
+function projectPageURL(projectId) {
+  return `project.html?p=${encodeURIComponent(projectId)}`;
+}
 
 function projectLinksHTML(projectId, linkClass) {
-  const links = PROJECT_LINKS[projectId] || {};
+  const links = (PROJECTS[projectId] && PROJECTS[projectId].links) || {};
   let out = '';
   if (links.github) {
     out += `<a href="${links.github}" class="${linkClass}" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> Code</a>`;
@@ -27,16 +24,165 @@ function projectLinksHTML(projectId, linkClass) {
   return out;
 }
 
-// Add Code / Live demo buttons to each project card
-document.querySelectorAll('.project-card[data-project]').forEach(card => {
-  const html = projectLinksHTML(card.dataset.project, 'project-live-link');
-  if (!html) return;
-  const row = document.createElement('div');
-  row.className = 'project-card-links';
-  row.innerHTML = html;
-  row.querySelectorAll('a').forEach(a => a.addEventListener('click', e => e.stopPropagation()));
-  card.querySelector('.project-basic-info').appendChild(row);
-});
+function projectCoverHTML(project) {
+  const cover = project.cover;
+  if (cover && cover.layout === 'phone') {
+    return `<div class="project-cover project-cover-phone"><img src="${cover.src}" alt="" loading="lazy"></div>`;
+  }
+  if (cover && cover.layout === 'phone-stack') {
+    return `<div class="project-cover project-cover-phone-stack">
+      <img class="phone-stack-main" src="${cover.main}" alt="" loading="lazy">
+      <div class="phone-stack-side">${cover.stack.map(src => `<img src="${src}" alt="" loading="lazy">`).join('')}</div>
+    </div>`;
+  }
+  if (Array.isArray(cover)) {
+    return `<div class="project-cover project-cover-phones">${cover.map(src => `<img src="${src}" alt="" loading="lazy">`).join('')}</div>`;
+  }
+  if (cover) {
+    return `<div class="project-cover"><img src="${cover}" alt="" loading="lazy"></div>`;
+  }
+  return `<div class="project-cover project-cover-tile"><i class="fas ${project.coverIcon || 'fa-code'}"></i></div>`;
+}
+
+function renderFeaturedProjects() {
+  const container = document.getElementById('featuredProjects');
+  if (!container) return;
+  container.innerHTML = FEATURED_PROJECTS.map(id => {
+    const p = PROJECTS[id];
+    const url = projectPageURL(id);
+    return `
+      <article class="featured-card" data-url="${url}">
+        <a href="${url}" class="featured-media" aria-label="${escapeHTML(p.title)}">${projectCoverHTML(p)}</a>
+        <div class="featured-body">
+          <p class="featured-context">${escapeHTML(p.context)}</p>
+          <h3><a href="${url}">${escapeHTML(p.title)}</a></h3>
+          <div class="featured-text">
+            <p class="featured-label">The problem</p>
+            <p>${escapeHTML(p.problem)}</p>
+            <p class="featured-label">What I built</p>
+            <p>${escapeHTML(p.built)}</p>
+          </div>
+          <div class="featured-tech">${p.cardTech.map(t => `<span>${escapeHTML(t)}</span>`).join('')}</div>
+          <div class="featured-actions">
+            <a href="${url}" class="btn btn-primary">View project <i class="fas fa-arrow-right"></i></a>
+            ${projectLinksHTML(id, 'btn btn-outline')}
+          </div>
+        </div>
+      </article>`;
+  }).join('');
+
+  container.querySelectorAll('.featured-card').forEach(card => {
+    card.addEventListener('click', e => {
+      if (e.target.closest('a') || window.getSelection().toString()) return;
+      window.location.href = card.dataset.url;
+    });
+  });
+}
+
+function renderOtherProjects() {
+  const container = document.getElementById('otherProjects');
+  if (!container) return;
+  container.innerHTML = OTHER_PROJECTS.map(id => {
+    const p = PROJECTS[id];
+    const links = projectLinksHTML(id, 'project-live-link');
+    return `
+      <div class="project-card" data-project="${id}" onclick="openProjectModal('${id}')">
+        <div class="project-header">
+          <div class="project-basic-info">
+            <h3>${escapeHTML(p.title)}</h3>
+            <div class="project-tech">${p.cardTech.map(t => `<span>${escapeHTML(t)}</span>`).join('')}</div>
+            ${links ? `<div class="project-card-links" onclick="event.stopPropagation()">${links}</div>` : ''}
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderProjectPage() {
+  const container = document.getElementById('projectPage');
+  if (!container) return;
+  const id = new URLSearchParams(window.location.search).get('p');
+  const p = PROJECTS[id];
+
+  if (!p || !FEATURED_PROJECTS.includes(id)) {
+    container.innerHTML = `
+      <div class="project-missing">
+        <h1>Project not found</h1>
+        <p>That project doesn't exist or has moved.</p>
+        <a href="index.html#projects" class="btn btn-primary">Back to projects</a>
+      </div>`;
+    return;
+  }
+
+  document.title = `${p.title} | Kok Shanjin`;
+  const images = projectImages(p);
+  const index = FEATURED_PROJECTS.indexOf(id);
+  const nextId = FEATURED_PROJECTS[(index + 1) % FEATURED_PROJECTS.length];
+  const links = projectLinksHTML(id, 'btn btn-outline');
+
+  container.innerHTML = `
+    <a href="index.html#projects" class="project-back"><i class="fas fa-arrow-left"></i> All projects</a>
+
+    <header class="project-hero">
+      <p class="featured-context">${escapeHTML(p.context)}</p>
+      <h1>${escapeHTML(p.title)}</h1>
+      <p class="project-lede">${escapeHTML(p.description)}</p>
+      ${links ? `<div class="modal-links">${links}</div>` : ''}
+    </header>
+
+    ${p.cover ? `<div class="project-hero-media">${projectCoverHTML(p)}</div>` : ''}
+
+    <div class="project-layout">
+      <div class="project-main">
+        <section class="project-section">
+          <h2>The problem</h2>
+          <p>${escapeHTML(p.problem)}</p>
+        </section>
+
+        <section class="project-section">
+          <h2>What I built</h2>
+          <p>${escapeHTML(p.built)}</p>
+          <ul class="project-features">${p.features.map(f => `<li>${escapeHTML(f)}</li>`).join('')}</ul>
+        </section>
+
+        ${images.length ? `
+          <section class="project-section">
+            <h2>Screenshots</h2>
+            <div class="project-gallery">
+              ${images.map(img => `
+                <figure>
+                  <img src="${img.src}" alt="${escapeHTML(img.caption || p.title)}" loading="lazy" onclick="openImageModal('${img.src}')">
+                  ${img.caption ? `<figcaption>${escapeHTML(img.caption)}</figcaption>` : ''}
+                </figure>`).join('')}
+            </div>
+          </section>` : ''}
+      </div>
+
+      <aside class="project-sidebar">
+        ${p.hideRole ? '' : `
+          <div class="modal-project-role">
+            <h4>My role</h4>
+            <p>${escapeHTML(p.role)}</p>
+          </div>`}
+        <div class="modal-project-achievement">
+          <p><strong>Outcome:</strong> ${escapeHTML(p.achievement)}</p>
+        </div>
+        <div class="project-sidebar-block">
+          <h4>Tech stack</h4>
+          <div class="modal-project-tech">${p.tech.map(t => `<span>${escapeHTML(t)}</span>`).join('')}</div>
+        </div>
+      </aside>
+    </div>
+
+    <nav class="project-next">
+      <a href="other-projects.html">See my other projects</a>
+      <a href="${projectPageURL(nextId)}">Next: ${escapeHTML(PROJECTS[nextId].title)} <i class="fas fa-arrow-right"></i></a>
+    </nav>`;
+}
+
+renderFeaturedProjects();
+renderOtherProjects();
+renderProjectPage();
 
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
@@ -406,215 +552,10 @@ function openProjectModal(projectId) {
   // Prevent body scroll when modal is open
   document.body.style.overflow = 'hidden';
   
-  let projectData = {};
-  
-  switch(projectId) {
-    case 'psa-automation':
-      projectData = {
-        title: 'Port Systems E2E Test Automation (PSA International)',
-        description: 'End-to-end test automation built during my internship at PSA International for Global PORTNET, the platform that handles cargo and vessel operations at the port. The suites drive the real portal through SSO and check every result beyond what is shown on screen.',
-        tech: ['Playwright', 'TypeScript', 'Page Object Model', 'SQL', 'Kafka', 'Azure DevOps'],
-        features: [
-          'Playwright and TypeScript suites using the Page Object Model, covering port-side cargo import/export and vessel-side operations modules',
-          'Three-layer verification for each test: UI behaviour, read-only SQL checks against the database, and audit-event assertions',
-          'Runs against real SSO and backends rather than mocks, with automatic test-data cleanup and generated evidence reports',
-          'Kafka message injection to drive event-based flows, with tests tagged into smoke, regression and end-to-end runs',
-          'Found defects through automation, including date parsing errors, timezone off-by-one bugs, wrong-row updates and duplicate-key clashes'
-        ],
-        role: 'Designed and built the suites end to end: page objects, database and audit checks, test-data cleanup and reporting.',
-        achievement: 'Gives the team repeatable automated checks with evidence reports for each module, and surfaced defects that were then fixed.',
-        images: []
-      };
-      break;
-    case 'smart-study-space':
-      projectData = {
-        title: 'Smart Study Space (Edge AI Seat & Noise Monitor)',
-        description: 'A real-time edge computing system that shows students which study areas have free seats and how noisy they are. Built by a team of five, it runs on-device AI inference and sensor fusion across three Raspberry Pis, with a serverless AWS dashboard. The first image below is a concept illustration of how it works; the rest are screenshots of the real dashboard and architecture.',
-        tech: ['Raspberry Pi', 'YOLOv11-Nano (ONNX)', 'OpenCV', 'MQTT', 'AWS Lambda, API Gateway, DynamoDB, S3', 'React', 'WebSockets'],
-        features: [
-          'Three-node Raspberry Pi system: YOLOv11-Nano people detection with mic-based noise measurement, ultrasonic seat sensing, and an MQTT gateway that combines both data sources',
-          'Solves the "chope" problem (a bag or laptop left on a seat to hold it) by fusing camera and sensor data, so each seat is labelled occupied, reserved or vacant',
-          'Designed for graceful degradation: if a node goes silent for over 60 seconds, the gateway switches to whichever data source is still working. A circuit breaker pauses cloud uploads when Wi-Fi drops, and a local dashboard keeps working offline',
-          'Data goes to the cloud through API Gateway, Lambda and DynamoDB, and a responsive React dashboard on S3 shows it',
-          'Found that uncapped inference made the Pi overheat and slow down within 10 minutes, and fixed it by capping the frame rate. Profiling also showed the sensor node was overpowered for its job, so a cheaper ESP32 board would do'
-        ],
-        role: 'Redesigned the React dashboard: connected it to the AWS API, built the ambient noise meter, and made the mobile layout with compact room cards.',
-        achievement: 'End-to-end latency of about 1.6 seconds, within the 2-second target.',
-        images: ['images/projects/smart-study-space/smartstudy-0-concept.png', 'images/projects/smart-study-space/smartstudy-1-dashboard.png', 'images/projects/smart-study-space/smartstudy-2-mobile.png', 'images/projects/smart-study-space/smartstudy-3-mobile-room.png', 'images/projects/smart-study-space/smartstudy-4-architecture.png']
-      };
-      break;
-    case 'ippt':
-      projectData = {
-        title: 'Interactive Physical Proficiency Trainer (IPPT Fitness App)',
-        description: 'An AI integrated android application designed to help users enhance their ippt performance. The app features real-time posture detection and correction for push ups and sit up using camera based ai, run tracking via gps and ar guided fitness tutorials to ensure proper form. User can view detailed summarised of their workout performance, making training measurable and engaging.',
-        tech: ['Android Development: Kotlin, Jetpack Compose', 'AI & Pose Detection: MediaPipe, TensorFlow Lite', 'Augmented Reality: ARCore', 'Location Services: Google Maps SDK, GPS tracking', 'Data Storage & State Management: Room DB, ViewModel, LiveData', 'UI/UX: Material Design, custom animations', 'Testing & Debugging: Android Emulator, Espresso'],
-        features: [
-          'Real-time push-up & sit-up tracking using Google ML Kit Pose Detection',
-          'AR tutorials for correct form via Google Scene Viewer',
-          'GPS-based 2.4km run tracking with live pace, distance & route via Google Maps',
-          'Offline workout summary storage using Room database'
-        ],
-        role: 'Developed the full running tracker module, integrating GPS, live tracking, pace calculation, and route visualization.',
-        achievement: 'Over 90% detection accuracy and high user satisfaction in usability tests.',
-        images: ['images/projects/ippt/ippt-home.jpg','images/projects/ippt/ippt-pushup.jpg', 'images/projects/ippt/ippt-situp.jpg', 'images/projects/ippt/ippt-run.jpg', 'images/projects/ippt/ippt-summary.jpg']
-      };
-      break;
-    case 'agent-cfo':
-      projectData = {
-        title: 'Agent CFO – RAG Financial Agent',
-        description: 'A retrieval-augmented generation (RAG) agent built for a DBS challenge. It answers questions by retrieving relevant passages with a hybrid approach that combines BM25 keyword search with vector embeddings before passing them to a large language model.',
-        tech: ['Python', 'RAG', 'BM25', 'Vector Search', 'Embeddings', 'LLMs'],
-        features: [
-          'Hybrid retrieval combining BM25 keyword search with vector embeddings',
-          'LLM-generated answers grounded in retrieved passages',
-          'Retrieval quality evaluated with Recall@K and MRR',
-          'Side-by-side comparison and tuning of retrieval strategies'
-        ],
-        role: 'Built the RAG agent and its hybrid retrieval pipeline, and evaluated retrieval strategies with Recall@K and MRR.',
-        achievement: 'Delivered a working hybrid-retrieval agent for the DBS challenge, with measurable retrieval quality.',
-        images: []
-      };
-      break;
-    case 'inventory':
-      projectData = {
-        title: 'Inventory Management Mobile App',
-        description: 'Developed a mobile application for real-time inventory tracking at NEC Asia Pacific Pte Ltd. Features include barcode scanning, push notifications, and user-friendly interface design.',
-        tech: ['React Native', 'Barcode Scanning', 'Push Notifications', 'Real-time Tracking'],
-        features: [
-          'Real-time inventory tracking',
-          'Barcode scanning capabilities',
-          'Push notifications for updates',
-          'User-friendly interface design'
-        ],
-        role: 'Enhanced company\'s inventory management system by developing a mobile app for real-time inventory tracking.',
-        achievement: 'Streamlined inventory processes and improved operational efficiency.',
-        images: []
-      };
-      break;
-    case 'inventory-web':
-      projectData = {
-        title: 'Inventory Management Website',
-        description: 'Designed and developed a comprehensive inventory management website for NEC Asia Pacific Pte Ltd. Implemented features like inventory tracking, automated notifications, and usage analytics.',
-        tech: ['Web Development', 'Inventory Tracking', 'Analytics', 'Automated Notifications'],
-        features: [
-          'Comprehensive inventory tracking',
-          'Automated notifications system',
-          'Usage analytics and reporting',
-          'User-friendly digital solutions'
-        ],
-        role: 'Designed and developed an inventory management website focusing on seamless tracking of inventory movement.',
-        achievement: 'Optimized operations through key features like inventory tracking, automated notifications, and usage analytics.',
-        images: ['images/projects/inventory-web/inventoryweb1.jpg', 'images/projects/inventory-web/inventoryweb2.jpg', 'images/projects/inventory-web/inventoryweb3.jpg', 'images/projects/inventory-web/inventoryweb4.jpg']
-      };
-      break;
-    case 'ai-job':
-      projectData = {
-        title: 'JobCupid: AI Job Matching Platform',
-        description: 'A full-stack job-matching app that turns a single resume upload into a ranked list of live job openings, replacing hours of manual searching.',
-        tech: ['Next.js', 'React', 'Node.js / Express', 'Python', 'OpenAI API'],
-        features: [
-          'LLM extraction of skills, seniority and suitable job titles from PDF resumes, using structured JSON outputs with server-side validation and prompt-injection safeguards',
-          'Ranking that combines OpenAI embedding similarity (70%) with whole-word skill matching (30%), plus de-duplication',
-          'Cut job-board requests per upload from up to 29 to 5, with results back in about 6 seconds',
-          'Production hardening: strict PDF validation, temporary file cleanup, per-IP rate limiting, CORS restrictions and secrets kept in environment variables',
-          'Accessible, mobile-first interface with editable AI results, pagination, loading and error states, and one-click AI cover letters'
-        ],
-        role: 'Built the full-stack app, from resume parsing and the ranking pipeline through to the production backend and the interface.',
-        achievement: 'Awarded a Certificate of Excellence at the NUS Guru AI Innovation Hackathon 2025.',
-        images: ['images/projects/ai-job-matching/jobcupid-1-home.png', 'images/projects/ai-job-matching/jobcupid-2-upload.png', 'images/projects/ai-job-matching/jobcupid-3-file.png', 'images/projects/ai-job-matching/jobcupid-4-analysing.png', 'images/projects/ai-job-matching/jobcupid-5-profile.png', 'images/projects/ai-job-matching/jobcupid-6-results.png', 'images/projects/ai-job-matching/jobcupid-7-cover-letter.png']
-      };
-      break;
-    case 'healthy-hero':
-      projectData = {
-        title: 'Healthy Hero - Object-Oriented 2D Game Engine',
-        description: 'A 2D arcade-style game developed using the LibGDX framework, focusing on promoting healthy eating through engaging gameplay. The game features multiple levels, boss fights, food-based entities (e.g., apple, banana, hamburger), and educational menu content. The architecture is designed with a clear separation between a reusable game engine layer and a game-specific logic layer, demonstrating clean modular design and adherence to SOLID principles.',
-        tech: ['Language & Engine: Java, LibGDX, LWJGL', 'Architecture: Layered architecture with Game Layer and Engine Layer', 'Design Patterns: Singleton, Factory, Abstract Class Inheritance', 'OOP Principles: SOLID (SRP, OCP, LSP, ISP, DIP), Encapsulation, Polymorphism', 'Game Engine Components: Custom collision manager and AI movement manager', 'Entity and scene lifecycle management', 'Audio handling via a centralized audio manager', 'Rendering & UI: SpriteBatch, ShapeRenderer, screen transitions', 'Other Skills: UML Design, technical documentation, group collaboration'],
-        features: [
-          'Multiple levels with increasing difficulty and boss fights',
-          'Food-based entities (apple, banana, hamburger) with unique behaviors',
-          'Educational menu content promoting healthy eating habits',
-          'Laser beam shooting mechanics and AI boss pursuit',
-          'Screen transitions and dynamic health-based scoring system',
-          'Robust systems for input/output, movement, collision detection, AI behavior, audio playback, and scene management',
-          'Clean modular design with clear separation between game engine and game-specific logic layers'
-        ],
-        role: 'Developed a comprehensive 2D game engine with layered architecture, implementing SOLID principles and design patterns.',
-        achievement: 'Successfully created an engaging educational game that promotes healthy eating while demonstrating advanced software engineering principles.',
-        images: ['images/projects/healthy-hero/healthy-hero-home.jpg', 'images/projects/healthy-hero/healthy-hero-menu1.jpg', 'images/projects/healthy-hero/healthy-hero-menu2.jpg', 'images/projects/healthy-hero/healthy-hero-game.jpg']
-      };
-      break;
-    case 'easyvpn':
-      projectData = {
-        title: 'EasyVPN: Secure Web Access Platform',
-        description: 'EasyVPN is a responsive, feature-rich web application that simulates a VPN service provider. Users can register, choose from various VPN plans, manage services like email routing and VPN server selection, and handle payments securely. Admins can perform full CRUD operations on users and plans via a dedicated dashboard, including bulk uploads. The project emphasizes usability, security, and scalability.',
-        tech: ['Frontend: HTML5, CSS3, JavaScript, Bootstrap, SweetAlert2, Chart.js', 'Backend: PHP, AJAX, jQuery', 'Database: MySQL', 'Authentication & Security: Session Management, Password Hashing, Input Sanitization, SQL Injection Prevention', 'Other Tools: GitHub (Version Control), Google Cloud Platform (VM Deployment)'],
-        features: [
-          'User Authentication: Secure login, registration, and persistent session handling',
-          'Plan Management: Browse, purchase, and manage VPN subscription plans',
-          'Payment System: Card info handling with validation and future-use option',
-          'User Dashboard: VPN country selection, email management, and account info',
-          'Admin Dashboard: CRUD operations for users and plans, CSV bulk upload',
-          'Responsive Design: Mobile-friendly UI using Bootstrap',
-          'Security: Proper sanitization, hashed credentials, and secure form submission'
-        ],
-        role: 'Developed a comprehensive VPN service platform with full-stack implementation including user authentication, payment processing, and admin dashboard.',
-        achievement: 'Successfully created a scalable web application with robust security features and responsive design.',
-                    images: ['images/projects/easyvpn/VPNWeb1.jpg', 'images/projects/easyvpn/VPNWeb2.jpg', 'images/projects/easyvpn/VPNWeb3.jpg', 'images/projects/easyvpn/VPNWeb4.jpg']
-          };
-          break;
-        case 'honestystay':
-          projectData = {
-            title: 'HonestStay – AI-Powered Hotel Review Credibility Platform',
-            description: 'HonestStay is a web-based platform that identifies and filters out AI-generated fake hotel reviews to help users make more trustworthy booking decisions. The app uses sentiment analysis and natural language processing (NLP) models to distinguish between genuine human-generated content (HGC) and AI-generated content (AIGC), assigning each hotel a credibility rating (A+ to B-) based on verified review data.',
-            tech: ['Frontend: HTML5, CSS3, JavaScript, Jinja (Flask templating)', 'Backend: Python, Flask', 'AI/NLP: Transformer models, NLTK Lexicon Algorithm', 'Data Scraping: BeautifulSoup (for hotel review data)', 'Visualization: Star-based review metrics and letter-grade ratings'],
-            features: [
-              'AI-generated review detection via NLP transformers',
-              'HonestStay hotel rating system',
-              'Detailed review insights and sentiment metrics',
-              'Real-time search and data filtering',
-              'Modern, user-friendly web interface'
-            ],
-            role: 'Developed an AI-powered platform for detecting fake hotel reviews using NLP and sentiment analysis.',
-            achievement: 'Successfully created a tool that helps users make more informed booking decisions by filtering out AI-generated content.',
-            images: ['images/projects/honestystay/honestystay1.jpg', 'images/projects/honestystay/honestystay2.jpg', 'images/projects/honestystay/honestystay3.jpg', 'images/projects/honestystay/honestystay4.jpg', 'images/projects/honestystay/honestystay5.jpg', 'images/projects/honestystay/honestystay6.jpg', 'images/projects/honestystay/honestystay7.jpg']
-          };
-          break;
-        case 'smartwatch':
-          projectData = {
-            title: 'Smartwatch Step-Tracker',
-            description: 'Developed a wearable smartwatch using the TinyDuino platform that tracks the number of steps taken, calories burnt, and distance travelled by the user. An accompanying Android application was built to visualize the data in real-time. This project combined both hardware and software development, bridging embedded systems with mobile app integration.',
-            tech: ['Hardware: TinyDuino Platform', 'Embedded Programming: C++, Arduino IDE', 'Mobile Development: Android Studio, Java', 'Integration: Communication between smartwatch and mobile app', 'Real-time Data Sync: Live fitness metrics visualization'],
-            features: [
-              'Hardware Development: Built a functional smartwatch using TinyDuino modules',
-              'Embedded Programming: Implemented step detection and tracking using C++ on Arduino IDE',
-              'Mobile App: Designed an Android application to display live fitness metrics',
-              'Integration: Enabled communication between smartwatch and mobile app for real-time data sync'
-            ],
-            role: 'Developed a complete wearable fitness tracking system combining hardware and software components.',
-            achievement: 'Successfully created a functional smartwatch with real-time data visualization through mobile app integration.',
-            images: ['images/projects/smartwatch/smartwatch1.jpg', 'images/projects/smartwatch/smartwatch2.jpg']
-                      };
-            break;
-          case 'shoe-inventory':
-            projectData = {
-              title: 'Shoe Inventory Management System',
-              description: 'A web-based NoSQL inventory management system built for shoe retailers to track stock levels, sales, and user data across multiple store locations. Designed to address challenges like overstocking, stockouts, and inconsistent inventory data, the system provides real-time analytics and streamlined CRUD operations.',
-              tech: ['Backend: PHP', 'Frontend: HTML, CSS, JavaScript, Bootstrap', 'Database: MongoDB Atlas (NoSQL)', 'Tools: Git, Data Analytics', 'Concepts: NoSQL schema design, indexing, concurrency handling, performance optimization, cloud deployment'],
-              features: [
-                'Backend Development: Built using PHP to manage CRUD operations for inventory, users, and sales records',
-                'Frontend Development: Implemented using HTML, CSS, JavaScript, and Bootstrap to provide a responsive and intuitive UI',
-                'Database: Used MongoDB Atlas, a fully managed cloud NoSQL database, with five key collections (Products, Stocks, Stores, Orders, Users)',
-                'Analytics & Reporting: Designed dashboards with features like revenue comparison, stock-to-sales ratio, and product performance',
-                'Advanced Features: Indexing for query performance, optimistic concurrency control for simultaneous edits, pagination for scalable data retrieval',
-                'Dataset: Populated using Kaggle\'s Shein footwear dataset and custom-generated data with Python scripts'
-              ],
-              role: 'Developed a comprehensive NoSQL inventory management system with real-time analytics and CRUD operations.',
-              achievement: 'Successfully created a scalable solution for inventory tracking with advanced features like concurrency control and performance optimization.',
-              images: ['images/projects/shoe-inventory/ShoeInventory1.jpg', 'images/projects/shoe-inventory/ShoeInventory2.jpg', 'images/projects/shoe-inventory/ShoeInventory3.jpg', 'images/projects/shoe-inventory/ShoeInventory4.jpg', 'images/projects/shoe-inventory/ShoeInventory5.jpg', 'images/projects/shoe-inventory/ShoeInventory6.jpg']
-            };
-            break;
-        }
-  
+  const projectData = PROJECTS[projectId];
+  if (!projectData) return;
+  const images = projectImages(projectData);
+
   // Populate modal content
   modalContent.innerHTML = `
     <h2 class="modal-project-title">${projectData.title}</h2>
@@ -635,7 +576,7 @@ function openProjectModal(projectId) {
       </ul>
     </div>
     
-    ${projectId !== 'ippt' ? `
+    ${!projectData.hideRole ? `
       <div class="modal-project-role">
         <h4>My Role:</h4>
         <p>${projectData.role}</p>
@@ -646,10 +587,10 @@ function openProjectModal(projectId) {
       <p><strong>Achievement:</strong> ${projectData.achievement}</p>
     </div>
     
-    ${projectData.images.length > 0 ? `
+    ${images.length > 0 ? `
       <div class="modal-project-gallery">
-        ${projectData.images.map(img => `
-          <img src="${img}" alt="Project Screenshot" class="modal-gallery-img" onclick="openImageModal('${img}')" onerror="this.style.display='none';">
+        ${images.map(img => `
+          <img src="${img.src}" alt="${escapeHTML(img.caption || 'Project screenshot')}" class="modal-gallery-img" onclick="openImageModal('${img.src}')" onerror="this.style.display='none';">
         `).join('')}
       </div>
     ` : ''}
