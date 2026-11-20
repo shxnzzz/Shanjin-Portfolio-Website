@@ -100,7 +100,7 @@ const PROJECTS = {
     problem: 'After Global PORTNET\'s cargo and vessel modules moved from UAT to production, the team needed a repeatable way to prove they still worked against the real systems.',
     built: 'Playwright and TypeScript test suites that drive the live portal through SSO and check each result three ways: on screen, in the database and in the audit events, with automatic evidence reports.',
     cardTech: ['Playwright', 'TypeScript', 'Page Object Model', 'SQL', 'Kafka'],
-    coverIcon: 'fa-vials',
+    cover: { layout: 'fit', src: 'images/projects/psa-automation/psa-e2e.jpg' },
     description: 'End-to-end test automation built during my internship at PSA International for Global PORTNET, the platform that handles cargo and vessel operations at the port. The suites drive the real portal through SSO and check every result beyond what is shown on screen.',
     tech: ['Playwright', 'TypeScript', 'Page Object Model', 'SQL', 'Kafka', 'Azure DevOps'],
     features: [
@@ -117,7 +117,7 @@ const PROJECTS = {
   },
 
   'agent-cfo': {
-    title: 'Agent CFO – RAG Financial Agent',
+    title: 'Agent CFO - RAG Financial Agent',
     cardTech: ['Python', 'RAG', 'BM25', 'Vector Search', 'LLMs'],
     description: 'A retrieval-augmented generation (RAG) agent built for a DBS challenge. It answers questions by retrieving relevant passages with a hybrid approach that combines BM25 keyword search with vector embeddings before passing them to a large language model.',
     tech: ['Python', 'RAG', 'BM25', 'Vector Search', 'Embeddings', 'LLMs'],

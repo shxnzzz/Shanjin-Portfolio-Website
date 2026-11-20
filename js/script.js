@@ -26,6 +26,9 @@ function projectLinksHTML(projectId, linkClass) {
 
 function projectCoverHTML(project) {
   const cover = project.cover;
+  if (cover && cover.layout === 'fit') {
+    return `<div class="project-cover project-cover-fit"><img src="${cover.src}" alt="" loading="lazy"></div>`;
+  }
   if (cover && cover.layout === 'phone') {
     return `<div class="project-cover project-cover-phone"><img src="${cover.src}" alt="" loading="lazy"></div>`;
   }

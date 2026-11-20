@@ -1966,6 +1966,15 @@ section {
   display: block;
 }
 
+.project-cover.project-cover-fit {
+  background: #f8fafc;
+}
+
+.project-cover.project-cover-fit img {
+  object-fit: contain;
+  object-position: center;
+}
+
 .project-cover-phone {
   display: flex;
   justify-content: center;
